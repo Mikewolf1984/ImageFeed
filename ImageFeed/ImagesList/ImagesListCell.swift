@@ -1,7 +1,10 @@
-//
-//  ImagesListCell.swift
-//  ImageFeed
-//
-//  Created by Михаил Волков on 27.11.2024.
-//
+import UIKit
 
+final class ImagesListCell: UITableViewCell {
+    
+    static let reuseIdentifier = "ImagesListCell"
+    
+    @IBOutlet weak var likeButtonOutlet: UIButton!
+    @IBOutlet weak var imageViewOutlet: UIImageView!
+    @IBOutlet weak var dateLabelOutlet: UILabel!
+}
