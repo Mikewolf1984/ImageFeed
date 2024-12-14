@@ -6,10 +6,21 @@
          contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "indexPath">
+               value = "ImagesListCell.reuseIdentifier">
             </PersistentString>
             <PersistentString
-               value = "ImagesListCell.reuseIdentifier">
+               value = "indexPath">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "main:AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.viewDidLoad():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "profilePhoto">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
