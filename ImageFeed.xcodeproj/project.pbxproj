@@ -38,7 +38,6 @@
 		4A2732852CEFAC4600520286 /* Exceptions for "ImageFeed" folder in "ImageFeed" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Auth/AuthViewController.swift,
 				Info.plist,
 			);
 			target = 4A27325C2CEFAC4300520286 /* ImageFeed */;
