@@ -164,10 +164,10 @@
             </objects>
             <point key="canvasLocation" x="733.58778625954199" y="361.97183098591552"/>
         </scene>
-        <!--AuthorisationController-->
+        <!--Auth View Controller-->
         <scene sceneID="rQO-CG-YJE">
             <objects>
-                <viewController id="Orz-7n-wLV" userLabel="AuthorisationController" customClass="AuthViewController" sceneMemberID="viewController">
+                <viewController id="Orz-7n-wLV" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KDy-md-T9X">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -203,7 +203,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Doe-u6-9so" kind="show" id="UAI-zl-6Cn"/>
+                                    <segue destination="Doe-u6-9so" kind="show" identifier="ShowWebView" id="UAI-zl-6Cn"/>
                                 </connections>
                             </button>
                         </subviews>

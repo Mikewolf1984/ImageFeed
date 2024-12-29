@@ -3,6 +3,47 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "main:AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.viewDidLoad():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "profilePhoto">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WebViewViewController.webView(_:decidePolicyFor:decisionHandler:):WebViewViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+            <PersistentString
+               value = "navigationAction.request.url">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WebViewViewController.fetchCode(url:):WebViewViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "components">
+            </PersistentString>
+            <PersistentString
+               value = "url.absoluteString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AuthViewController.prepare(for:sender:):AuthController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "segue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -14,13 +55,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "main:AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.viewDidLoad():ProfileViewController.swift">
+         contextName = "AuthViewController.webViewViewController(_:didAuthentificatedWithCode:):AuthController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "profilePhoto">
+               value = "delegate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

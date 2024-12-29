@@ -1,19 +1,15 @@
-/*import UIKit
+import UIKit
 
-protocol  AuthViewControllerDelegate: AnyObject {
-    func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
-}
 
-final class AuthViewController: UIViewController {
+class AuthViewController: UIViewController {
     private let showWebViewSegueIdentifier = "ShowWebView"
-    
-    weak var delegate: AuthViewControllerDelegate?
+
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
         configureBackButton()
-        webViewViewController.delegate = self
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,15 +35,11 @@ final class AuthViewController: UIViewController {
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
-    func webViewViewController(_ vc: WebViewViewController, didAuthentificateWithCode code: String) {
-        delegate?.authViewController(self, didAuthenticateWithCode: code)
+    func webViewViewController(_ vc: WebViewViewController, didAuthentificatedWithCode code: String) {
+        print (code)
+        vc.dismiss(animated: true)
     }
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
-        dismiss(animated: true) {
-             
-        }
+ 
     }
 }
-        
-    
-*/
