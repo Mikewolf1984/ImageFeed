@@ -2,12 +2,14 @@ import UIKit
 
 
 class AuthViewController: UIViewController {
+    
+    
     private let showWebViewSegueIdentifier = "ShowWebView"
     private let oauth2Service = OAuth2Service.shared
+    private let oauthTokenStorage = OAuth2TokenStorage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureBackButton()
         
     }
@@ -32,8 +34,8 @@ class AuthViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil) // 3
         navigationItem.backBarButtonItem?.tintColor = UIColor(named: "BackGroundColor") // 4
     }
-
- 
+    
+    
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
@@ -42,10 +44,15 @@ extension AuthViewController: WebViewViewControllerDelegate {
     }
     
     func webViewViewController(_ vc: WebViewViewController, didAuthentificatedWithCode code: String) {
-        
-        oauth2Service.fetchOAuthToken(code: code)
-        
+        //let oauthTokenStorage: OAuth2TokenStorage
+        oauth2Service.fetchOAuthToken(code: code) { [weak self] result in
+            switch result {
+            case .success(let token):
+                self?.oauthTokenStorage.accessToken = token
+                print("Token succcessfully saved to user defaults.")
+            case .failure(let error):
+                print ("Error with saving token: \(error)")
+            }
+        }
     }
-    
-    
 }
