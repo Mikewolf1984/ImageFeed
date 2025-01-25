@@ -3,7 +3,7 @@ import UIKit
 
 class AuthViewController: UIViewController {
     private let showWebViewSegueIdentifier = "ShowWebView"
-
+    private let oauth2Service = OAuth2Service.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +32,20 @@ class AuthViewController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil) // 3
         navigationItem.backBarButtonItem?.tintColor = UIColor(named: "BackGroundColor") // 4
     }
+
+ 
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
-    func webViewViewController(_ vc: WebViewViewController, didAuthentificatedWithCode code: String) {
-        print (code)
-        vc.dismiss(animated: true)
-    }
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
- 
+        dismiss(animated: true, completion: nil)
     }
+    
+    func webViewViewController(_ vc: WebViewViewController, didAuthentificatedWithCode code: String) {
+        
+        oauth2Service.fetchOAuthToken(code: code)
+        
+    }
+    
+    
 }

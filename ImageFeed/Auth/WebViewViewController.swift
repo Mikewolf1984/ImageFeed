@@ -48,6 +48,7 @@ final class WebViewViewController: UIViewController {
         webView.navigationDelegate = self
         loadAuthView()
         updateProgress()
+        
     }
     
     private func updateProgress() {
@@ -71,6 +72,7 @@ final class WebViewViewController: UIViewController {
         let request = URLRequest(url: url)
         webView.load(request)
     }
+    
     private func fetchCode(url: URL?) -> String? {
         guard let url,
               let components = URLComponents(string: url.absoluteString),
@@ -81,6 +83,8 @@ final class WebViewViewController: UIViewController {
         }
         return item.value
     }
+    
+ 
 }
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView,
