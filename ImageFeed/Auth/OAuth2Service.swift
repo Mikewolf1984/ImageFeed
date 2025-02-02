@@ -3,9 +3,7 @@ import Foundation
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
-    
     private init() {}
-    
     
     public func fetchOAuthToken (code: String, handler: @escaping (Result<String, Error>) -> Void) {
         guard var urlComponentsString = URLComponents(string: "https://unsplash.com/oauth/token") else {
@@ -37,7 +35,7 @@ final class OAuth2Service {
                     handler(.success(response.token))
                 }
                 catch {
-                    print("token decode error")
+                    print("Token decode error: \(error)")
                     handler(.failure(error))
                 }
             }

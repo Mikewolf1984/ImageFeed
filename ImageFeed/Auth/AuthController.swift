@@ -1,17 +1,19 @@
 import UIKit
 
+protocol AuthViewControllerDelegate: AnyObject {
+    func authViewController(_ vc: AuthViewController, didAuthentificatedWithCode code: String)
+}
 
 class AuthViewController: UIViewController {
-    
     
     private let showWebViewSegueIdentifier = "ShowWebView"
     private let oauth2Service = OAuth2Service.shared
     private let oauthTokenStorage = OAuth2TokenStorage()
+    weak var delegate: AuthViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackButton()
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -29,30 +31,25 @@ class AuthViewController: UIViewController {
     }
     
     private func configureBackButton() {
-        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button") // 1
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "nav_back_button") // 2
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil) // 3
-        navigationItem.backBarButtonItem?.tintColor = UIColor(named: "BackGroundColor") // 4
+        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "nav_back_button")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = UIColor(named: "BackGroundColor")
     }
-    
-    
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
-    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
-        dismiss(animated: true, completion: nil)
+    func webViewViewController(_ vc: WebViewViewController, didAuthentificatedWithCode code: String) {
+        delegate?.authViewController(self, didAuthentificatedWithCode: code)
     }
     
-    func webViewViewController(_ vc: WebViewViewController, didAuthentificatedWithCode code: String) {
-        //let oauthTokenStorage: OAuth2TokenStorage
-        oauth2Service.fetchOAuthToken(code: code) { [weak self] result in
-            switch result {
-            case .success(let token):
-                self?.oauthTokenStorage.accessToken = token
-                print("Token succcessfully saved to user defaults.")
-            case .failure(let error):
-                print ("Error with saving token: \(error)")
-            }
-        }
+    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
+        dismiss(animated: true)
     }
 }
+
+
+
+
+
+

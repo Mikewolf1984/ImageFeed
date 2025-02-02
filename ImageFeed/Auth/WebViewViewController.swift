@@ -13,6 +13,14 @@ final class WebViewViewController: UIViewController {
     
     weak var delegate: WebViewViewControllerDelegate?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        webView.navigationDelegate = self
+        loadAuthView()
+        updateProgress()
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         webView.addObserver(
@@ -20,6 +28,7 @@ final class WebViewViewController: UIViewController {
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
             options: .new,
             context: nil)
+        updateProgress()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -43,14 +52,6 @@ final class WebViewViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        webView.navigationDelegate = self
-        loadAuthView()
-        updateProgress()
-        
-    }
-    
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
@@ -72,20 +73,8 @@ final class WebViewViewController: UIViewController {
         let request = URLRequest(url: url)
         webView.load(request)
     }
-    
-    private func fetchCode(url: URL?) -> String? {
-        guard let url,
-              let components = URLComponents(string: url.absoluteString),
-              components.path == "/oauth/authorize/native",
-              let item  = components.queryItems?.first(where: { $0.name == "code" })
-        else {
-            return nil
-        }
-        return item.value
-    }
-    
- 
 }
+
 extension WebViewViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
@@ -94,10 +83,21 @@ extension WebViewViewController: WKNavigationDelegate {
             delegate?.webViewViewController(self, didAuthentificatedWithCode: code)
             decisionHandler(.cancel)
         } else {
-            delegate?.webViewViewControllerDidCancel(self)
             decisionHandler(.allow)
         }
-        
+    }
+    private func fetchCode(url: URL?) -> String? {
+        if
+            let url = url,
+            let urlComponents = URLComponents(string: url.absoluteString),
+            urlComponents.path == "/oauth/authorize/native",
+            let items = urlComponents.queryItems,
+            let codeItem = items.first(where: { $0.name == "code" })
+        {
+            return codeItem.value
+        } else {
+            return nil
+        }
     }
 }
 

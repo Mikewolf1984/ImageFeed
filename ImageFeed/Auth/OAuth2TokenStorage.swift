@@ -1,10 +1,11 @@
 import Foundation
 
 class OAuth2TokenStorage {
-    var accessToken: String {
+    var accessToken: String? {
         get {
             guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
-                fatalError("No access token found")
+                print("No access token found")
+                return nil
             }
             return token
         }
