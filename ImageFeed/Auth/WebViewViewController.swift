@@ -18,9 +18,12 @@ final class WebViewViewController: UIViewController {
         webView.navigationDelegate = self
         loadAuthView()
         updateProgress()
-        
     }
     
+    @IBAction func didTapBackButton(_ sender: Any) {
+        delegate?.webViewViewControllerDidCancel(self)
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         webView.addObserver(
@@ -58,7 +61,7 @@ final class WebViewViewController: UIViewController {
     }
     
     private func loadAuthView() {
-        guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else {
+        guard var urlComponents = URLComponents(string: Constants.unsplashAuthorizeURLString) else {
             return
         }
         urlComponents.queryItems = [
@@ -100,7 +103,3 @@ extension WebViewViewController: WKNavigationDelegate {
         }
     }
 }
-
-
-
-

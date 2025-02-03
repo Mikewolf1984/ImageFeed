@@ -1,7 +1,8 @@
 import UIKit
 
 final class SplashViewController: UIViewController {
-    private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthentificationScreen"
+    
+    private let showAuthenticationScreenSegueIdentifier = "ShowAuthentificationScreen"
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
     
@@ -11,8 +12,7 @@ final class SplashViewController: UIViewController {
         if oauth2TokenStorage.accessToken != nil {
             switchToTabBarController()
         } else {
-            // Show Auth Screen
-            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
+            performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
         }
     }
     
@@ -35,11 +35,11 @@ final class SplashViewController: UIViewController {
 
 extension SplashViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
+        if segue.identifier == showAuthenticationScreenSegueIdentifier {
             guard
                 let navigationController = segue.destination as? UINavigationController,
                 let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)") }
+            else { fatalError("Failed to prepare for \(showAuthenticationScreenSegueIdentifier)") }
             viewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
@@ -50,7 +50,7 @@ extension SplashViewController {
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthentificatedWithCode code: String) {
         dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             self.fetchOAuthToken(code)
         }
     }
@@ -61,10 +61,10 @@ extension SplashViewController: AuthViewControllerDelegate {
             switch result {
             case .success(let token):
                 oauth2TokenStorage.accessToken = token
-                print("Token successfully saved to UserDefaults")
                 self.switchToTabBarController()
             case .failure(let error):
-                print ("Error with saving token: \(error)")
+                //TODO later
+                break
             }
         }
     }

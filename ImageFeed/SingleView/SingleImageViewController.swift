@@ -63,7 +63,3 @@ extension SingleImageViewController: UIScrollViewDelegate {
         scrollView.layoutIfNeeded()
     }
 }
-
-
-
-

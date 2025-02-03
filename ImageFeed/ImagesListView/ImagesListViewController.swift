@@ -63,8 +63,8 @@ extension ImagesListViewController {
         }
         cell.imageViewOutlet.image = image
         cell.dateLabelOutlet.text = currentDateString
-        let intName = indexPath.row
-        cell.likeButtonOutlet.imageView?.image = intName % 2 == 0 ? UIImage(named: "likeActive") : UIImage(named: "likeNoActive")
+        let likeImage = indexPath.row % 2 == 0 ? UIImage(named: "likeActive") : UIImage(named: "likeNoActive")
+        cell.likeButtonOutlet.setImage(likeImage, for: .normal)
     }
 }
 
@@ -86,4 +86,3 @@ extension ImagesListViewController: UITableViewDelegate {
         performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
     }
 }
-
