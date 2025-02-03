@@ -1,8 +1,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController
-{
+final class ProfileViewController: UIViewController {
     private let profilePhoto = UIImage(named: "defaultProfilePhoto")
     private let profileName = "Екатерина Новикова"
     private let profileAccountName = "@ekaterina_nov"
@@ -30,6 +29,7 @@ class ProfileViewController: UIViewController
         configureTextLabel(label: helloLabel, text: helloText, anchor: profileNickNameLabel, top: 8, leading: 0, fontSize: 13, fontColor: .white)
         configureExitButton(button: exitButton, anchor: profileImage)
     }
+    
     private func configureImageView(image: UIImageView){
         image.translatesAutoresizingMaskIntoConstraints = false
         image.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 18).isActive = true
@@ -51,13 +51,12 @@ class ProfileViewController: UIViewController
         button.tintColor = UIColor(named: "exitColor")
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
-        button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -26).isActive = true
         button.centerYAnchor.constraint(equalTo: anchor.centerYAnchor).isActive = true
     }
     @objc
     private func didTapButton() {
-        
+     //TODO later
     }
     
 }
-

@@ -3,18 +3,92 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "AuthViewController.prepare(for:sender:):AuthController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "segue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "ImagesListCell.reuseIdentifier">
+               value = "indexPath">
             </PersistentString>
             <PersistentString
-               value = "indexPath">
+               value = "ImagesListCell.reuseIdentifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "OAuth2Service.fetchOAuthToken(code:completion:):OAuth2Service.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+            <PersistentString
+               value = "response">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AuthViewController.getAuthToken(code:):AuthController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "WebViewViewController.fetchCode(url:):WebViewViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "components">
+            </PersistentString>
+            <PersistentString
+               value = "url.absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "main:AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
+      </ContextState>
+      <ContextState
+         contextName = "OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AuthViewController.fetchOAuthToken(code:):AuthController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NSURLSession.data(for:completion:):URLSession+data.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AuthViewController.webViewViewController(_:didAuthentificatedWithCode:):AuthController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WebViewViewController.webView(_:decidePolicyFor:decisionHandler:):WebViewViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+            <PersistentString
+               value = "navigationAction.request.url">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.viewDidLoad():ProfileViewController.swift">
