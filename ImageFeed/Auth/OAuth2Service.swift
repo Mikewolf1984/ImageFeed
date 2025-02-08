@@ -28,7 +28,7 @@ final class OAuth2Service {
         dataTask.resume()
     }
     
-    func makeRequest(code: String)-> URLRequest? {
+    private func makeRequest(code: String)-> URLRequest? {
         guard var urlComponentsString = URLComponents(string: "https://unsplash.com/oauth/token") else {
             print("urlComponents error")
             return nil
