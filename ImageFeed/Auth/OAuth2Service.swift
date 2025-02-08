@@ -1,16 +1,33 @@
 import Foundation
 
+enum AuthServiceError: Error {
+    case invalidRequest
+}
+
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
+    
     private init() {}
     
     func fetchOAuthToken (code: String, handler: @escaping (Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        guard lastCode != code else {
+            handler(.failure(AuthServiceError.invalidRequest))
+            return
+        }
+        task?.cancel()
+        lastCode = code
         guard let request = makeRequest(code: code) else {
+            handler(.failure((AuthServiceError.invalidRequest)))
             print("Error creating URLRequest")
             return
         }
-        let dataTask  = URLSession.shared.data(for: request) { result in
+        let task  = urlSession.data(for: request) { result in
+            
             switch result {
             case .failure(let error):
                 print("Error with dataTask creating: \(error)")
@@ -23,9 +40,13 @@ final class OAuth2Service {
                 } catch {
                     handler(.failure(error))
                 }
+                self.task = nil
+                self.lastCode = nil
             }
         }
-        dataTask.resume()
+        
+        self.task = task
+        task.resume()
     }
     
     private func makeRequest(code: String)-> URLRequest? {
