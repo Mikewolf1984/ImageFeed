@@ -1,14 +1,32 @@
-
 import UIKit
+import Foundation
 
 final class ProfileViewController: UIViewController {
     private let profilePhoto = UIImage(named: "defaultProfilePhoto")
     private let profileName = "Екатерина Новикова"
     private let profileAccountName = "@ekaterina_nov"
     private let helloText = "Hello, world!"
+    private let profileService = ProfileService.shared
+    private let token = OAuth2TokenStorage().accessToken ?? ""
+    
+    func loadProfile() {
+        profileService.fetchProfileData(token: token) { result in
+            
+                switch result {
+                case .success(let profile):
+                    print(profile)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        print("End loading profile")
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadProfile()
+        
         let profileImage = UIImageView(image: profilePhoto ?? UIImage(systemName: "person.crop.circle.fill"))
         let profileNameLabel = UILabel()
         let profileNickNameLabel = UILabel()
