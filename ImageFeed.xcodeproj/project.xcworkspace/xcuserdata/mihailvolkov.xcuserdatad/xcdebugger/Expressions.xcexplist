@@ -36,6 +36,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ProfileImageService.fetchProfileImage(token:handler:):ProfileImageService.swift.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "lastToken">
+            </PersistentString>
+            <PersistentString
+               value = "profile">
+            </PersistentString>
+            <PersistentString
+               value = "userName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "NSURLSession.data(for:completion:):URLSession+data.swift">
          <PersistentStrings>
             <PersistentString
@@ -77,6 +91,14 @@
             </PersistentString>
             <PersistentString
                value = "indexPath">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SplashViewController.viewDidAppear(_:):SplashViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "profileService">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -137,6 +159,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ProfileViewController.loadProfile():ProfileViewController.swift">
+      </ContextState>
+      <ContextState
          contextName = "ProfileViewController.loadProfile():ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -144,6 +169,17 @@
             </PersistentString>
             <PersistentString
                value = "token">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ProfileService.fetchProfileData(token:handler:):ProfileService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ProfileImageService.fetchProfileImage(token:userName:handler:):ProfileImageService.swift.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

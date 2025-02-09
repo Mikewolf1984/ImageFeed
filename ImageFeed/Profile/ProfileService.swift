@@ -3,6 +3,7 @@ import Foundation
 enum ProfileServiceError: Error {
     case invalidRequest
     case invalidToken
+    case decodingError
 }
 
 
@@ -12,9 +13,10 @@ final class ProfileService {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private var lastToken: String?
-    private var profile: Profile?
+    //private var profile: Profile?
     private let token = OAuth2TokenStorage().accessToken
     private init() {}
+    private(set) var profile: Profile?
     
     private func makeProfileRequest(token: String)-> URLRequest? {
         guard let url = URL(string: "https://api.unsplash.com/me") else {
@@ -49,15 +51,15 @@ final class ProfileService {
                 if let error = error {
                     print("error: \(error)")
                 }
-                if let response = response as? HTTPURLResponse {
-                    print("statusCode: \(response.statusCode)")
-                }
                 if let data = data {
                     do {
-                        print ("Data: \(data)")
+                        
                         let result = try JSONDecoder().decode(ProfileResult.self, from: data)
-                        let profile = self.profileFill(result: result)
-                        handler(.success(profile))
+                        self.profile = self.profileFill(result: result)
+                        if let profile = self.profile {
+                            handler(.success(profile)) } else {
+                                handler(.failure(ProfileServiceError.decodingError))
+                            }
                     } catch {
                         handler(.failure(error))
                     }
