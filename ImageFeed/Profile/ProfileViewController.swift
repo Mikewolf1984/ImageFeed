@@ -1,5 +1,6 @@
 import UIKit
 import Foundation
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     private var profilePhoto = UIImage(named: "defaultProfilePhoto")
@@ -9,37 +10,20 @@ final class ProfileViewController: UIViewController {
                                          name: "Екатерина Новикова",
                                          loginName: "@ekaterina_nov",
                                          bio: "Hello world!")
-        
+    
     private var profileImageServiceObserver: NSObjectProtocol?
     
     func loadProfile() {
         guard let profile = profileService.profile else { return }
         self.currentProfile = profile
         guard let profileImageUrl = profileImageService.profileImageUrl else { return }
-        guard let  avatarUrl = URL(string: profileImageUrl) else {print("Fuck"); return}
-        do {
-            let avatarData = try Data(contentsOf: avatarUrl)
-            profilePhoto = UIImage(data: avatarData)
-        } catch { print("fuck")
-        }
         
-  }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadProfile()
-        
-        profileImageServiceObserver = NotificationCenter.default    // 2
-                    .addObserver(
-                        forName: ProfileImageService.didChangeNotification, // 3
-                        object: nil,                                        // 4
-                        queue: .main                                        // 5
-                    ) { [weak self] _ in
-                        guard let self = self else { return }
-                        self.updateAvatar()                                 // 6
-                    }
-        updateAvatar()
         
         let profileImage = UIImageView(image: profilePhoto ?? UIImage(systemName: "person.crop.circle.fill"))
         let profileNameLabel = UILabel()
@@ -50,11 +34,25 @@ final class ProfileViewController: UIViewController {
             target: self,
             action: #selector(Self.didTapButton)
         )
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar(avatarImageView: profileImage)
+            }
+        
+        
+        
         view.addSubview(profileImage)
         view.addSubview(profileNameLabel)
         view.addSubview(profileNickNameLabel)
         view.addSubview(helloLabel)
         view.addSubview(exitButton)
+        updateAvatar(avatarImageView: profileImage)
         configureImageView(image: profileImage)
         configureTextLabel(label: profileNameLabel, text: currentProfile.name, anchor: profileImage, top: 8, leading: 0, fontSize: 23, fontColor: .white)
         configureTextLabel(label: profileNickNameLabel, text: currentProfile.loginName, anchor: profileNameLabel, top: 8, leading: 0, fontSize: 13, fontColor: .gray)
@@ -62,20 +60,38 @@ final class ProfileViewController: UIViewController {
         configureExitButton(button: exitButton, anchor: profileImage)
     }
     
-    private func updateAvatar() {                                   // 8
-            guard
-                let profileImageURL = ProfileImageService.shared.profileImageUrl,
-                let url = URL(string: profileImageURL)
-            else { return }
-            // TODO [Sprint 11] Обновить аватар, используя Kingfisher
+    private func updateAvatar(avatarImageView: UIImageView) {                                   // 8
+        guard
+            let profileImageURL = ProfileImageService.shared.profileImageUrl,
+            let url = URL(string: profileImageURL)
+        else { return }
+        // TODO [Sprint 11] Обновить аватар, используя Kingfisher
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        
+        avatarImageView.kf.indicatorType = .activity
+        avatarImageView.kf.setImage(with: url,
+                              placeholder: UIImage(named: "placeholder.jpeg"),
+                              options: [.processor(processor)]) { result in
+            switch result {
+            case .success(let value):
+                print(value.image)
+                print(value.cacheType)
+                print(value.source)
+            case .failure(let error):
+                print(error)
+            }
         }
+        
+    }
     
     private func configureImageView(image: UIImageView){
+        
         image.translatesAutoresizingMaskIntoConstraints = false
         image.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 18).isActive = true
-        image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+        image.topAnchor.constraint(equalTo: view.topAnchor, constant: 76).isActive = true
         image.widthAnchor.constraint(equalToConstant: 70).isActive = true
         image.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        updateAvatar(avatarImageView: image)
     }
     
     private func configureTextLabel(label: UILabel, text: String, anchor: UIView, top: CGFloat, leading: CGFloat, fontSize: CGFloat, fontColor: UIColor) {
@@ -96,7 +112,7 @@ final class ProfileViewController: UIViewController {
     }
     @objc
     private func didTapButton() {
-     //TODO later
+        //TODO later
     }
     
 }
