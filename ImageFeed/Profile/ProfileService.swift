@@ -13,7 +13,6 @@ final class ProfileService {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private var lastToken: String?
-    //private var profile: Profile?
     private let token = OAuth2TokenStorage().accessToken
     private init() {}
     private(set) var profile: Profile?
@@ -46,27 +45,22 @@ final class ProfileService {
             return
         }
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = urlSession.objectTask(for: request) { (result: Result<ProfileResult, Error>) in
             DispatchQueue.main.async {
-                if let error = error {
-                    print("error: \(error)")
+                switch result {
+                case .success(let result):
+                    self.profile = self.profileFill(result: result)
+                    if let profile = self.profile {
+                        handler(.success(profile)) } else {
+                            handler(.failure(ProfileServiceError.decodingError))
+                        }
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    handler(.failure(error))
                 }
-                if let data = data {
-                    do {
-                        
-                        let result = try JSONDecoder().decode(ProfileResult.self, from: data)
-                        self.profile = self.profileFill(result: result)
-                        if let profile = self.profile {
-                            handler(.success(profile)) } else {
-                                handler(.failure(ProfileServiceError.decodingError))
-                            }
-                    } catch {
-                        handler(.failure(error))
-                    }
-                }
-                self.task = nil
-                self.lastToken = nil
             }
+            self.task = nil
+            self.lastToken = nil
         }
         self.task = task
         task.resume()

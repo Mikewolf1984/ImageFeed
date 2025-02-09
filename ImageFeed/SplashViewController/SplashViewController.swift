@@ -87,7 +87,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             UIBlockingProgressHUD.dismiss()
             guard let self = self else { return }
             switch result {
-            case .success(let result):
+            case .success:
                self.switchToTabBarController()
             case .failure:
                showAlert(vc: self, title: "Error", message: "Error fetching avatar")

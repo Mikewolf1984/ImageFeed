@@ -26,25 +26,20 @@ final class OAuth2Service {
             print("Error creating URLRequest")
             return
         }
-        let task  = urlSession.data(for: request) { result in
-            
-            switch result {
-            case .failure(let error):
-                print("Error with dataTask creating: \(error)")
-                handler(.failure(error))
-            case .success(let data):
-                do  {
-                    let decoder = JSONDecoder()
-                    let response = try decoder.decode(OAuthTokenResponseBody.self, from: data)
+        
+        let task = urlSession.objectTask(for: request) {(result: Result<OAuthTokenResponseBody, Error>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
                     handler(.success(response.token))
-                } catch {
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
                     handler(.failure(error))
                 }
-                self.task = nil
-                self.lastCode = nil
             }
+            self.task = nil
+            self.lastCode = nil
         }
-        
         self.task = task
         task.resume()
     }

@@ -2,7 +2,7 @@ import UIKit
 import Foundation
 
 final class ProfileViewController: UIViewController {
-    private let profilePhoto = UIImage(named: "defaultProfilePhoto")
+    private var profilePhoto = UIImage(named: "defaultProfilePhoto")
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var currentProfile = Profile(userName: "ekaterina_nov",
@@ -16,7 +16,13 @@ final class ProfileViewController: UIViewController {
         guard let profile = profileService.profile else { return }
         self.currentProfile = profile
         guard let profileImageUrl = profileImageService.profileImageUrl else { return }
-       
+        guard let  avatarUrl = URL(string: profileImageUrl) else {print("Fuck"); return}
+        do {
+            let avatarData = try Data(contentsOf: avatarUrl)
+            profilePhoto = UIImage(data: avatarData)
+        } catch { print("fuck")
+        }
+        
   }
     
     override func viewDidLoad() {

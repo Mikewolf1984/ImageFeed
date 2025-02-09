@@ -25,26 +25,35 @@ extension URLSession {
                     fulfillCompletionOnTheMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
                 }
             } else if let error = error {
-                print(error)
+                print("Error: \(error.localizedDescription)")
                 fulfillCompletionOnTheMainThread(.failure(NetworkError.urlRequestError(error)))
             } else {
+                print("Error: URLSession returned nil data, response, or error")
                 fulfillCompletionOnTheMainThread(.failure(NetworkError.urlSessionError))
             }
         })
         return task
     }
-    func objectTask (
+}
+
+extension URLSession {
+    func objectTask<T: Decodable>(
         for request: URLRequest,
-        completion: @escaping (Result<Data, Error>) -> Void
+        completion: @escaping (Result<T, Error>) -> Void
     ) -> URLSessionTask {
-        
+        let decoder = JSONDecoder()
         let task = data(for: request) { (result: Result<Data, Error>) in
             switch result {
-            case .success(let data):
-                completion(.success(data))
-                
+                case .success(let data):
+                do {
+                    let value = try decoder.decode(T.self, from: data)
+                    completion(.success(value))
+                } catch {
+                    print("Ошибка декодирования: \(error.localizedDescription), Данные: \(String(data: data, encoding: .utf8) ?? "")")
+                     
+                }
             case .failure(let error):
-                print("Error in objectTask: \(error)")
+                print("Error: \(error.localizedDescription)")
                 completion(.failure(error))
             }
         }

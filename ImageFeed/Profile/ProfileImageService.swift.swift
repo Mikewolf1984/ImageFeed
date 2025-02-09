@@ -41,38 +41,26 @@ final class ProfileImageService
         }
         task?.cancel()
         lastUserName  = userName
-       
+        
         guard let request = makeProfileImageRequest(token: token, userName: userName) else {
             handler(.failure(ProfileImageServiceError.invalidRequest))
             return
         }
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = urlSession.objectTask(for: request) { (result: Result<ProfileImageResult, Error>) in
             DispatchQueue.main.async {
-                if let error = error {
-                    print("error: \(error)")
-                    handler(.failure(ProfileImageServiceError.invalidRequest))
+                switch result {
+                case .success(let result):
+                    self.profileImageUrl = result.imageUrl.small
+                    if self.profileImageUrl != nil {
+                        handler(.success(self.profileImageUrl ?? ""))
+                    } else {
+                        handler(.failure(ProfileImageServiceError.decodingError))
+                    }
                     
-                }
-                if let response = response as? HTTPURLResponse {
-                    if response.statusCode != 200 {
-                        print("Status code != 200")
-                    }
-                }
-                if let data = data  {
-                    do {
-                        let result = try JSONDecoder().decode(ProfileImageResult.self, from: data)
-                        let profileImage = result.imageUrl
-                        self.profileImageUrl = profileImage.small
-                        handler(.success(profileImage.small))
-                        NotificationCenter.default
-                            .post(
-                                name: ProfileImageService.didChangeNotification,
-                                object: self,
-                                userInfo: ["URL": self.profileImageUrl])
-                    } catch {
-                        handler(.failure(ProfileServiceError.decodingError))
-                    }
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    handler(.failure(error))
                 }
                 self.task = nil
                 self.lastUserName = nil
