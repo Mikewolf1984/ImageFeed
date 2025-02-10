@@ -3,7 +3,6 @@ import UIKit
 
 protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(_ vc: AuthViewController, didAuthentificatedWithCode code: String)
-    
 }
 
 final class AuthViewController: UIViewController {

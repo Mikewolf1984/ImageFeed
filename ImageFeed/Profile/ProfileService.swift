@@ -6,7 +6,6 @@ enum ProfileServiceError: Error {
     case decodingError
 }
 
-
 final class ProfileService {
     static let shared = ProfileService()
     
@@ -29,18 +28,30 @@ final class ProfileService {
         return request
     }
     
+    private func profileFill(result: ProfileResult) -> Profile
+    {
+        let firstName = result.firstName ?? ""
+        let lastName = result.lastName ?? ""
+        let profile = Profile (
+            userName: result.username,
+            name: "\(firstName) \(lastName)",
+            loginName: "@\(result.username)",
+            bio: result.bio ?? "")
+        return profile
+    }
+    
     func fetchProfileData (token: String, handler: @escaping (Result<Profile, Error>) -> Void)
     {
         assert(Thread.isMainThread)
         guard lastToken != token else {
-            print("Invalid token")
+            print("[ProfileService] Token hasn't changed, skipping request [token: \(token)]")
             handler(.failure(ProfileServiceError.invalidToken))
             return
         }
         task?.cancel()
         lastToken  = token
         guard let request = makeProfileRequest(token: token) else {
-            print ("Invalid URL for request")
+            print("[ProfileService] Failed to create URLRequest")
             handler(.failure(ProfileServiceError.invalidRequest))
             return
         }
@@ -52,10 +63,11 @@ final class ProfileService {
                     self.profile = self.profileFill(result: result)
                     if let profile = self.profile {
                         handler(.success(profile)) } else {
+                            print("[ProfileService] Failed to decode profile data")
                             handler(.failure(ProfileServiceError.decodingError))
                         }
                 case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
+                    print("[ProfileService] Failed to fetch profile data: \(error.localizedDescription) ")
                     handler(.failure(error))
                 }
             }
@@ -64,16 +76,5 @@ final class ProfileService {
         }
         self.task = task
         task.resume()
-    }
-    func profileFill(result: ProfileResult) -> Profile
-    {
-        let firstName = result.firstName ?? ""
-        let lastName = result.lastName ?? ""
-        let profile = Profile (
-            userName: result.username,
-            name: "\(firstName) \(lastName)",
-            loginName: "@\(result.username)",
-            bio: result.bio ?? "")
-        return profile
     }
 }

@@ -7,7 +7,6 @@ enum ProfileImageServiceError: Error {
     case invaliUserName
 }
 
-
 final class ProfileImageService
 {
     
@@ -36,6 +35,7 @@ final class ProfileImageService
     func fetchProfileImage (token: String, userName: String, handler: @escaping (Result<String, Error>) -> Void)
     {
         guard lastUserName != userName else {
+            print("[ProfileImageService] Same userName requested]")
             handler(.failure(ProfileImageServiceError.invaliUserName))
             return
         }
@@ -43,6 +43,7 @@ final class ProfileImageService
         lastUserName  = userName
         
         guard let request = makeProfileImageRequest(token: token, userName: userName) else {
+            print("[ProfileImageService] Invalid URLRequest")
             handler(.failure(ProfileImageServiceError.invalidRequest))
             return
         }
@@ -54,12 +55,14 @@ final class ProfileImageService
                     self.profileImageUrl = result.imageUrl.small
                     if self.profileImageUrl != nil {
                         handler(.success(self.profileImageUrl ?? ""))
+                        NotificationCenter.default.post(name: ProfileImageService.didChangeNotification, object: self, userInfo: ["URL": self.profileImageUrl])
                     } else {
+                        print("[ProfileImageService] Error decoding image url [URL: nil]")
                         handler(.failure(ProfileImageServiceError.decodingError))
                     }
                     
                 case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
+                    print ("[ProfileImageService] Error fetching image url: [\(error.localizedDescription)]")
                     handler(.failure(error))
                 }
                 self.task = nil

@@ -39,13 +39,13 @@
          contextName = "ProfileImageService.fetchProfileImage(token:handler:):ProfileImageService.swift.swift">
          <PersistentStrings>
             <PersistentString
-               value = "lastToken">
-            </PersistentString>
-            <PersistentString
                value = "profile">
             </PersistentString>
             <PersistentString
                value = "userName">
+            </PersistentString>
+            <PersistentString
+               value = "lastToken">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -87,10 +87,10 @@
          contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "ImagesListCell.reuseIdentifier">
+               value = "indexPath">
             </PersistentString>
             <PersistentString
-               value = "indexPath">
+               value = "ImagesListCell.reuseIdentifier">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -128,6 +128,9 @@
             <PersistentString
                value = "result">
             </PersistentString>
+            <PersistentString
+               value = "profileImageService">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -140,9 +143,6 @@
                value = "response">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileService.fetchProfileData(handler:):ProfileService.swift">
@@ -162,6 +162,9 @@
          contextName = "closure #1 in ProfileViewController.loadProfile():ProfileViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ProfileService.fetchProfileData(token:handler:):ProfileService.swift">
+      </ContextState>
+      <ContextState
          contextName = "ProfileViewController.loadProfile():ProfileViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -173,7 +176,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ProfileService.fetchProfileData(token:handler:):ProfileService.swift">
+         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in ProfileImageService.fetchProfileImage(token:userName:handler:):ProfileImageService.swift.swift">

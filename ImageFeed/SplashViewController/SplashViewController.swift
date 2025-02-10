@@ -11,6 +11,7 @@ final class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initController()
         
     }
     
@@ -18,9 +19,16 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
         if let token = oauth2TokenStorage.accessToken  {
             fetchProfile(token)
+            switchToTabBarController()
+            guard let userName = profileService.profile?.userName else {return}
+            fetchProfileImage(token: token, userName: userName)
             
         } else {
-            performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
+            if let authViewController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController {
+                authViewController.delegate = self
+                authViewController.modalPresentationStyle = .fullScreen
+                present(authViewController, animated: true, completion: nil)
+            }
         }
     }
     
@@ -40,19 +48,16 @@ final class SplashViewController: UIViewController {
         
         window.rootViewController = tabBarController
     }
-}
-
-extension SplashViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showAuthenticationScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for \(showAuthenticationScreenSegueIdentifier)") }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
+    private func initController()
+    {
+        self.view.backgroundColor = UIColor(named: "BackGroundColor")
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        let imageView = UIImageView(image: UIImage(named: "launchImage"))
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
     }
 }
 
@@ -69,15 +74,14 @@ extension SplashViewController: AuthViewControllerDelegate {
     
     private func fetchProfile(_ token: String) {
         UIBlockingProgressHUD.show()
-        profileService.fetchProfileData(token: token) { [weak self] result in
+        profileService.fetchProfileData(token: token) { result in
             UIBlockingProgressHUD.dismiss()
-            guard let self = self else { return }
             switch result {
             case .success(let result):
                 let userName = result.userName
-                fetchProfileImage(token: token, userName: userName)
+                self.fetchProfileImage(token: token, userName: userName)
             case .failure:
-                showAlert(vc: self, title: "Error", message: "Error fetching profile")
+                self.showAlert(vc: self, title: "Что-то пошло не так", message: "Не удалось войти в систему")
             }
         }
     }
@@ -89,9 +93,9 @@ extension SplashViewController: AuthViewControllerDelegate {
             guard let self = self else { return }
             switch result {
             case .success:
-               self.switchToTabBarController()
+                self.switchToTabBarController()
             case .failure:
-               showAlert(vc: self, title: "Error", message: "Error fetching avatar")
+                showAlert(vc: self, title: "Что-то пошло не так", message: "Не удалось загрузить аватар")
             }
         }
     }
@@ -106,7 +110,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 oauth2TokenStorage.accessToken = token
                 self.switchToTabBarController()
             case .failure(let error):
-                showAlert(vc: self, title: "Error", message: "Error fetching token \(error)")
+                showAlert(vc: self, title: "Что-то пошло не так", message: "Не удалось получить токен: \(error.localizedDescription)")
                 break
             }
         }
@@ -117,10 +121,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             title: title,
             message: message,
             preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default) { _ in
-            self.performSegue(withIdentifier: self.showAuthenticationScreenSegueIdentifier, sender: nil)
-        }
-        
+        let action = UIAlertAction(title: "OK", style: .default)
         alert.addAction(action)
         vc.present(alert, animated: true)
     }

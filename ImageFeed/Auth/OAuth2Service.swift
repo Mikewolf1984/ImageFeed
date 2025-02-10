@@ -16,14 +16,15 @@ final class OAuth2Service {
     func fetchOAuthToken (code: String, handler: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
         guard lastCode != code else {
+            print("[fetchOAuthToken] Duplicate code received: [\(code)]")
             handler(.failure(AuthServiceError.invalidRequest))
             return
         }
         task?.cancel()
         lastCode = code
         guard let request = makeRequest(code: code) else {
+            print("[fetchOAuthToken] Invalid request")
             handler(.failure((AuthServiceError.invalidRequest)))
-            print("Error creating URLRequest")
             return
         }
         
@@ -33,7 +34,7 @@ final class OAuth2Service {
                 case .success(let response):
                     handler(.success(response.token))
                 case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
+                    print("[Oauth2Service] Fetch token failed: [\(error.localizedDescription)]")
                     handler(.failure(error))
                 }
             }

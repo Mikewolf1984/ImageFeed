@@ -1,4 +1,3 @@
-
 struct ProfileImageUrl: Codable {
     let small: String
     let medium: String
