@@ -18,6 +18,7 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
         if let token = oauth2TokenStorage.accessToken  {
             fetchProfile(token)
+            
         } else {
             performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
         }
@@ -116,7 +117,10 @@ extension SplashViewController: AuthViewControllerDelegate {
             title: title,
             message: message,
             preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default)
+        let action = UIAlertAction(title: "OK", style: .default) { _ in
+            self.performSegue(withIdentifier: self.showAuthenticationScreenSegueIdentifier, sender: nil)
+        }
+        
         alert.addAction(action)
         vc.present(alert, animated: true)
     }

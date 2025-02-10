@@ -14,9 +14,13 @@ final class ProfileViewController: UIViewController {
     private var profileImageServiceObserver: NSObjectProtocol?
     
     func loadProfile() {
-        guard let profile = profileService.profile else { return }
+        guard let profile = profileService.profile else {
+            print("No profile data")
+            return }
         self.currentProfile = profile
-        guard let profileImageUrl = profileImageService.profileImageUrl else { return }
+        guard let profileImageUrl = profileImageService.profileImageUrl else {
+            print ("No image URL")
+            return }
         
     }
     
