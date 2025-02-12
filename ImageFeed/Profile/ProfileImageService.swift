@@ -7,11 +7,9 @@ enum ProfileImageServiceError: Error {
     case invaliUserName
 }
 
-final class ProfileImageService
-{
+final class ProfileImageService {
     
     static let shared = ProfileImageService()
-    
     static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
@@ -21,7 +19,7 @@ final class ProfileImageService
     private(set) var profileImageUrl: String?
     
     private func makeProfileImageRequest(token: String, userName: String)-> URLRequest? {
-        guard let url = URL(string: "https://api.unsplash.com/users/\(userName)") else {
+        guard let url = URL(string: Constants.unsplashUsersURLString+userName) else {
             print ("Invalid URL for request")
             return nil
         }

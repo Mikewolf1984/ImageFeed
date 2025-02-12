@@ -29,7 +29,7 @@ final class ProfileViewController: UIViewController {
         let profileNickNameLabel = UILabel()
         let helloLabel = UILabel()
         let exitButton = UIButton.systemButton(
-            with: UIImage(named: "Exit")!,
+            with: UIImage(named: "Exit") ?? UIImage(),
             target: self,
             action: #selector(Self.didTapButton)
         )
@@ -61,29 +61,31 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.profileImageUrl,
             let url = URL(string: profileImageURL)
         else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: 61)
         avatarImageView.kf.indicatorType = .activity
         avatarImageView.kf.setImage(with: url,
-                                    placeholder: UIImage(named: "placeholder.jpeg"),
-                                    options: [.processor(processor)]) { result in
+                                    placeholder: UIImage(named: "Placeholder")) { result in
             switch result {
             case .success(let value):
                 print(value.image)
                 print(value.cacheType)
                 print(value.source)
             case .failure(let error):
-                
                 print("[ProfileImageViewController] Error downloading profile image: \(error.localizedDescription)]")
             }
+            avatarImageView.layer.masksToBounds = true
+            avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
         }
     }
     
     private func configureImageView(image: UIImageView){
+        image.image = UIImage(named: "Placeholder")
+        image.layer.cornerRadius = 35
         image.translatesAutoresizingMaskIntoConstraints = false
         image.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 18).isActive = true
         image.topAnchor.constraint(equalTo: view.topAnchor, constant: 76).isActive = true
         image.widthAnchor.constraint(equalToConstant: 70).isActive = true
         image.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
         updateAvatar(avatarImageView: image)
     }
     

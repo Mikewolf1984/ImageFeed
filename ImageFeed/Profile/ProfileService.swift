@@ -17,7 +17,7 @@ final class ProfileService {
     private(set) var profile: Profile?
     
     private func makeProfileRequest(token: String)-> URLRequest? {
-        guard let url = URL(string: "https://api.unsplash.com/me") else {
+        guard let url = URL(string: Constants.unsplashMeURLString) else {
             print ("Invalid URL for request")
             return nil
         }

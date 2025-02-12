@@ -42,10 +42,10 @@
                value = "profile">
             </PersistentString>
             <PersistentString
-               value = "userName">
+               value = "lastToken">
             </PersistentString>
             <PersistentString
-               value = "lastToken">
+               value = "userName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -87,10 +87,10 @@
          contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "indexPath">
+               value = "ImagesListCell.reuseIdentifier">
             </PersistentString>
             <PersistentString
-               value = "ImagesListCell.reuseIdentifier">
+               value = "indexPath">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -134,6 +134,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ProfileService.fetchProfileData(token:handler:):ProfileService.swift">
+      </ContextState>
+      <ContextState
          contextName = "NetworkClient.fetch(request:handler:):NetworkClient.swift">
          <PersistentStrings>
             <PersistentString
@@ -141,6 +144,23 @@
             </PersistentString>
             <PersistentString
                value = "response">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ProfileViewController.loadProfile():ProfileViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.loadProfile():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "profileLoaded">
+            </PersistentString>
+            <PersistentString
+               value = "token">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -159,26 +179,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ProfileViewController.loadProfile():ProfileViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ProfileService.fetchProfileData(token:handler:):ProfileService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.loadProfile():ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "profileLoaded">
-            </PersistentString>
-            <PersistentString
-               value = "token">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in closure #1 in ProfileImageService.fetchProfileImage(token:userName:handler:):ProfileImageService.swift.swift">
          <PersistentStrings>
             <PersistentString
@@ -195,6 +195,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ProfileViewController.updateAvatar(avatarImageView:):ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "avatarImageView.layer.cornerRadius">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "AuthViewController.prepare(for:sender:):AuthController.swift">
          <PersistentStrings>
             <PersistentString
@@ -207,6 +215,14 @@
          <PersistentStrings>
             <PersistentString
                value = "dataTask">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ProfileViewController.updateAvatar(avatarImageView:):ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "avatarImageView.kf.base.layer.cornerRadius">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
