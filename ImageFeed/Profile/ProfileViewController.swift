@@ -41,7 +41,9 @@ final class ProfileViewController: UIViewController {
         
         configureImageView(image: profileImage)
         configureTextLabel(label: profileNameLabel, text: currentProfile.name, anchor: profileImage, top: 8, leading: 0, fontSize: 23, fontColor: .white)
+        profileNameLabel.font = .systemFont(ofSize: 23, weight: .bold)
         configureTextLabel(label: profileNickNameLabel, text: currentProfile.loginName, anchor: profileNameLabel, top: 8, leading: 0, fontSize: 13, fontColor: .gray)
+        
         configureTextLabel(label: helloLabel, text: currentProfile.bio, anchor: profileNickNameLabel, top: 8, leading: 0, fontSize: 13, fontColor: .white)
         configureExitButton(button: exitButton, anchor: profileImage)
     }
