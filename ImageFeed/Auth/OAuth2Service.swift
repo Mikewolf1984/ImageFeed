@@ -1,35 +1,52 @@
 import Foundation
 
+enum AuthServiceError: Error {
+    case invalidRequest
+}
+
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
+    
     private init() {}
     
     func fetchOAuthToken (code: String, handler: @escaping (Result<String, Error>) -> Void) {
-        guard let request = makeRequest(code: code) else {
-            print("Error creating URLRequest")
+        assert(Thread.isMainThread)
+        guard lastCode != code else {
+            print("[fetchOAuthToken] Duplicate code received: [\(code)]")
+            handler(.failure(AuthServiceError.invalidRequest))
             return
         }
-        let dataTask  = URLSession.shared.data(for: request) { result in
-            switch result {
-            case .failure(let error):
-                print("Error with dataTask creating: \(error)")
-                handler(.failure(error))
-            case .success(let data):
-                do  {
-                    let decoder = JSONDecoder()
-                    let response = try decoder.decode(OAuthTokenResponseBody.self, from: data)
+        task?.cancel()
+        lastCode = code
+        guard let request = makeRequest(code: code) else {
+            print("[fetchOAuthToken] Invalid request")
+            handler(.failure((AuthServiceError.invalidRequest)))
+            return
+        }
+        
+        let task = urlSession.objectTask(for: request) {(result: Result<OAuthTokenResponseBody, Error>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
                     handler(.success(response.token))
-                } catch {
+                case .failure(let error):
+                    print("[Oauth2Service] Fetch token failed: [\(error.localizedDescription)]")
                     handler(.failure(error))
                 }
             }
+            self.task = nil
+            self.lastCode = nil
         }
-        dataTask.resume()
+        self.task = task
+        task.resume()
     }
     
-    func makeRequest(code: String)-> URLRequest? {
-        guard var urlComponentsString = URLComponents(string: "https://unsplash.com/oauth/token") else {
+    private func makeRequest(code: String)-> URLRequest? {
+        guard var urlComponentsString = URLComponents(string: Constants.unsplashTokenURLString) else {
             print("urlComponents error")
             return nil
         }
