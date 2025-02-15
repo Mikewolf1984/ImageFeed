@@ -9,7 +9,6 @@ final class ImagesListViewController: UIViewController {
     let imagesListService = ImagesListService.shared
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var photos = [Photo]()
-    //private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -18,12 +17,9 @@ final class ImagesListViewController: UIViewController {
         return formatter
     }()
     
-    private var currentDateString: String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        currentDateString = dateFormatter.string(from: Date())
         NotificationCenter.default.addObserver(forName: ImagesListService.didChangeNotification,
                                                object: nil,
                                                queue: .main) { [weak self] _ in
@@ -42,7 +38,7 @@ final class ImagesListViewController: UIViewController {
                 return
             }
             
-            guard let largeImageURL = URL(string: photos[indexPath.row].largeImageURL) else {
+            guard let largeImageURL = URL(string: imagesListService.photos[indexPath.row].largeImageURL) else {
                 return
             }
             viewController.largeImageURL = largeImageURL
@@ -55,6 +51,7 @@ final class ImagesListViewController: UIViewController {
         let newCount = ImagesListService.shared.photos.count
         photos = ImagesListService.shared.photos
         if oldCount != newCount {
+            guard isViewLoaded else { return }
             tableView.performBatchUpdates {
                 let indexPaths = (oldCount..<newCount).map { i in
                     IndexPath(row: i, section: 0)
@@ -97,7 +94,15 @@ extension ImagesListViewController {
         cell.imageViewOutlet.kf.setImage(with: cellImageURL, placeholder: scribble)  { _ in
             self.tableView.reloadRows(at: [indexPath], with: .automatic)
         }
-        cell.dateLabelOutlet.text = photos[indexPath.row].createdAt?.description
+        
+        if let  imageDateString = photos[indexPath.row].createdAt {
+            let imageDate = dateFormatter.string(from: imageDateString)
+            cell.dateLabelOutlet.text = imageDate
+        } else {
+            //TODO: Попробовать второй вариант из учебника
+            cell.dateLabelOutlet.text = ""
+        }
+        
         let likeImage = photos[indexPath.row].isLiked ? UIImage(named: "likeActive") : UIImage(named: "likeNoActive")
         cell.likeButtonOutlet.setImage(likeImage, for: .normal)
     }

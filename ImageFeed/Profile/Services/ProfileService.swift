@@ -16,6 +16,11 @@ final class ProfileService {
     private init() {}
     private(set) var profile: Profile?
     
+    func clearProfileService()
+    {
+        profile = nil
+    }
+    
     private func makeProfileRequest(token: String)-> URLRequest? {
         guard let url = URL(string: Constants.unsplashMeURLString) else {
             print ("Invalid URL for request")

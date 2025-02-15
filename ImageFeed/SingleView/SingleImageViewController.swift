@@ -21,20 +21,19 @@ final class SingleImageViewController: UIViewController {
             guard isViewLoaded, let image else { return }
             singleImageView.image = image
             singleImageView.frame.size = image.size
-            rescaleAndCenterImageInScrollView(image: singleImageView.image!)
+            rescaleAndCenterImageInScrollView(image: image)
         }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImage()
-        
     }
+    
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale
         let maxZoomScale = scrollView.maximumZoomScale
-        view.layoutIfNeeded()
+        scrollView.layoutIfNeeded()
         let visibleRectSize = scrollView.bounds.size
         let imageSize = image.size
         let hScale = visibleRectSize.width / imageSize.width
@@ -43,9 +42,11 @@ final class SingleImageViewController: UIViewController {
         scrollView.setZoomScale(scale, animated: false)
         scrollView.layoutIfNeeded()
         let newContentSize = scrollView.contentSize
-        let x = (newContentSize.width - visibleRectSize.width) / 2
-        let y = (newContentSize.height - visibleRectSize.height) / 2
-        scrollView.setContentOffset(CGPoint(x: x, y: y), animated: true)
+        let x = (newContentSize.width  - scrollView.bounds.size.height) / 2
+        let y = (newContentSize.height - scrollView.bounds.size.height) / 2
+        print("x: \(x) y: \(y) "  )
+        scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+        scrollView.layoutIfNeeded()
     }
     
     private func setupImage() {
@@ -53,11 +54,9 @@ final class SingleImageViewController: UIViewController {
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
         let scribble = UIImage(named: "scribble")
-        singleImageView.kf.indicatorType = .activity
         UIBlockingProgressHUD.show()
-        singleImageView.kf.setImage(with: largeImageURL) { [weak self] result in
+        singleImageView.kf.setImage(with: largeImageURL, placeholder: scribble) { [weak self] result in
             UIBlockingProgressHUD.dismiss()
-            
             guard let self = self else { return }
             switch result {
             case .success(let imageResult):
@@ -75,7 +74,6 @@ final class SingleImageViewController: UIViewController {
         let alert = UIAlertController(title: "Что-то пошло не так. Попробовать еще раз?",
                                       message: "",
                                       preferredStyle: .alert)
-        
         let alertActionDismiss = UIAlertAction(title: "Не надо", style: .default) { _ in
             alert.dismiss(animated: true)
             self.dismiss(animated: true)

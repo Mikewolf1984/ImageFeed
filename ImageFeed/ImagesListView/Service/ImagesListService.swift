@@ -10,9 +10,8 @@ final class ImagesListService {
     
     static let shared = ImagesListService()
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
-    
+    var lastLoadedPage: Int?
     private(set) var photos: [Photo] = []
-    private var lastLoadedPage: Int?
     private var currentTask: URLSessionTask?
     private let urlSession = URLSession.shared
     private let oauthToken = OAuth2TokenStorage().accessToken
@@ -22,11 +21,16 @@ final class ImagesListService {
         return dateFormatter
     }()
     
+    func clearImageListService()
+    {
+        lastLoadedPage = nil
+        photos.removeAll()
+    }
+    
     func fetchPhotosNextPage() {
         guard currentTask == nil else { return }
         
         let nextPage = (lastLoadedPage ?? 0) + 1
-        print ("Next page: \(nextPage)")
         guard let request = makePhotoRequest(page: nextPage, perPage: "10") else {
             print("Error creating URLRequest")
             return
@@ -37,7 +41,10 @@ final class ImagesListService {
             case .success(let response):
                 self.lastLoadedPage = nextPage
                 let newPhotos = self.convertResultToPhotos(result: response)
-                self.photos.append(contentsOf: newPhotos)
+                let uniqueNewPhotos = newPhotos.filter {photo in
+                    !self.photos.contains(where: {$0.id == photo.id})
+                }
+                self.photos.append(contentsOf: uniqueNewPhotos)
                 NotificationCenter.default.post(name: ImagesListService.didChangeNotification, object: self)
             case .failure(let error):
                 print("Error fetching photos: \(error.localizedDescription)")
@@ -133,5 +140,6 @@ final class ImagesListService {
         }
         task.resume()
     }
+    
 }
 
