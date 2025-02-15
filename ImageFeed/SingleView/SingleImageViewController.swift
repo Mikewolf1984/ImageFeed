@@ -14,21 +14,21 @@ final class SingleImageViewController: UIViewController {
         
     }
     
+    var largeImageURL: URL?
+    
     var image: UIImage? {
         didSet {
-            guard isViewLoaded else { return }
+            guard isViewLoaded, let image else { return }
             singleImageView.image = image
+            singleImageView.frame.size = image.size
             rescaleAndCenterImageInScrollView(image: singleImageView.image!)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        singleImageView.image = image
-        singleImageView.frame.size = image!.size
-        scrollView.minimumZoomScale = 0.1
-        scrollView.maximumZoomScale = 1.25
-        rescaleAndCenterImageInScrollView(image: singleImageView.image!)
+        setupImage()
+        
     }
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
@@ -45,7 +45,47 @@ final class SingleImageViewController: UIViewController {
         let newContentSize = scrollView.contentSize
         let x = (newContentSize.width - visibleRectSize.width) / 2
         let y = (newContentSize.height - visibleRectSize.height) / 2
-        scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+        scrollView.setContentOffset(CGPoint(x: x, y: y), animated: true)
+    }
+    
+    private func setupImage() {
+        guard let largeImageURL else { return }
+        scrollView.minimumZoomScale = 0.1
+        scrollView.maximumZoomScale = 1.25
+        let scribble = UIImage(named: "scribble")
+        singleImageView.kf.indicatorType = .activity
+        UIBlockingProgressHUD.show()
+        singleImageView.kf.setImage(with: largeImageURL) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            
+            guard let self = self else { return }
+            switch result {
+            case .success(let imageResult):
+                scrollView.bounds.size = view.bounds.size
+                scrollView.contentSize = imageResult.image.size
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+            case .failure:
+                self.showError()
+            }
+        }
+    }
+    
+    private func showError ()
+    {
+        let alert = UIAlertController(title: "Что-то пошло не так. Попробовать еще раз?",
+                                      message: "",
+                                      preferredStyle: .alert)
+        
+        let alertActionDismiss = UIAlertAction(title: "Не надо", style: .default) { _ in
+            alert.dismiss(animated: true)
+            self.dismiss(animated: true)
+        }
+        let alertActionRetry = UIAlertAction(title: "Повторить", style: .default) { _ in
+            self.setupImage()
+        }
+        alert.addAction(alertActionDismiss)
+        alert.addAction(alertActionRetry)
+        present(alert, animated: true)
     }
 }
 
@@ -63,3 +103,6 @@ extension SingleImageViewController: UIScrollViewDelegate {
         scrollView.layoutIfNeeded()
     }
 }
+
+
+
