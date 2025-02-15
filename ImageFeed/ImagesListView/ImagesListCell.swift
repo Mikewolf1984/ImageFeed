@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
     
@@ -7,4 +8,11 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet weak var likeButtonOutlet: UIButton!
     @IBOutlet weak var imageViewOutlet: UIImageView!
     @IBOutlet weak var dateLabelOutlet: UILabel!
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        // Отменяем загрузку, чтобы избежать багов при переиспользовании ячеек
+        imageViewOutlet.kf.cancelDownloadTask()
+    }
 }

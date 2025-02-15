@@ -231,8 +231,8 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggL-7x-LhA">
-                                <rect key="frame" x="0.0" y="3" width="64" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggL-7x-LhA">
+                                <rect key="frame" x="0.0" y="4" width="64" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="Id7-97-6Tw"/>
                                     <constraint firstAttribute="height" constant="44" id="TPl-Vw-nwJ"/>
