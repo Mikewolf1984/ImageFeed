@@ -26,10 +26,8 @@ final class SingleImageViewController: UIViewController {
         super.viewDidLoad()
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         singleImageView.translatesAutoresizingMaskIntoConstraints = true
-        //rescaleAndCenterImageInScrollView(image: image!)
         setupImage()
     }
-    
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale
@@ -43,6 +41,9 @@ final class SingleImageViewController: UIViewController {
         scrollView.setZoomScale(scale, animated: false)
         scrollView.layoutIfNeeded()
         singleImageView.center = scrollView.center
+        let x = max(0, (imageSize.width - visibleRectSize.width)) / 2
+        let y = max(0, (imageSize.height - visibleRectSize.height)) / 2
+        scrollView.contentOffset = CGPoint(x: x, y: y)
         scrollView.layoutIfNeeded()
     }
     
@@ -91,14 +92,7 @@ extension SingleImageViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        //let leftOffset = (scrollView.bounds.width - scrollView.contentSize.width)/2
-        //let topOffset = (scrollView.bounds.height - scrollView.contentSize.height)/2
-        //scrollView.contentInset.left = leftOffset
-        //scrollView.contentInset.top = topOffset
         singleImageView.center = scrollView.center
         scrollView.layoutIfNeeded()
     }
 }
-
-
-

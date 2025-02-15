@@ -5,7 +5,6 @@ final class ImagesListViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
     
-    
     let imagesListService = ImagesListService.shared
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var photos = [Photo]()
@@ -95,9 +94,7 @@ extension ImagesListViewController {
         let scribble = UIImage(named: "scribble")
         
         cell.imageViewOutlet.kf.setImage(with: cellImageURL, placeholder: scribble)  { _ in
-            DispatchQueue.main.async {
-                self.tableView.reloadRows(at: [indexPath], with: .automatic)
-            }
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
         }
         
         if let  imageDateString = photos[indexPath.row].createdAt {
