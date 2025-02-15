@@ -32,7 +32,7 @@ final class ImagesListService {
         
         let nextPage = (lastLoadedPage ?? 0) + 1
         guard let request = makePhotoRequest(page: nextPage, perPage: "10") else {
-            print("Error creating URLRequest")
+            print("[ImagesListService] Error creating URLRequest")
             return
         }
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<PhotoResultResponseBody, Error>) in
@@ -47,7 +47,7 @@ final class ImagesListService {
                 self.photos.append(contentsOf: uniqueNewPhotos)
                 NotificationCenter.default.post(name: ImagesListService.didChangeNotification, object: self)
             case .failure(let error):
-                print("Error fetching photos: \(error.localizedDescription)")
+                print("[ImagesListService] Error fetching photos: \(error.localizedDescription)")
             }
             self.currentTask = nil
         }
@@ -81,12 +81,10 @@ final class ImagesListService {
             URLQueryItem(name: "per_page", value: "10"),
             URLQueryItem(name: "client_id", value: Constants.accessKey),
         ]
-        
         guard let url = urlComponents.url(relativeTo: Constants.defaultBaseURL) else {
-            assertionFailure("Error creating URL")
+            print("[ImagesListService] Error: Cannot create URL")
             return nil
         }
-        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         return request
@@ -95,7 +93,7 @@ final class ImagesListService {
     private func makePhotoIsLikedRequest(photoID: String, state: Bool) -> URLRequest? {
         let urlString = "\(Constants.photosString)/\(photoID)/like"
         guard let url = URL(string: urlString) else {
-            assertionFailure("Error creating URL")
+            print("[ImagesListService] Error: Cannot create URL")
             return nil
         }
         var request = URLRequest(url: url)
@@ -107,14 +105,14 @@ final class ImagesListService {
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         
         guard let request = makePhotoIsLikedRequest(photoID: photoId, state: isLike) else {
-            print("Error creating request")
+            print("[ImagesListService] Error: Cannot create URLRequest")
             return
         }
         
         let task = urlSession.dataTask(with: request) { data, response, error in
             
             if let error = error {
-                print("Error changing like: \(error)")
+                print("[ImagesListService] Error: Data task error: \(error.localizedDescription)")
                 completion(.failure(error))
                 return
             }  else {
@@ -132,14 +130,12 @@ final class ImagesListService {
                     self.photos[index] = newPhoto
                     completion(.success(()))
                 } else {
-                    print("Photo not found")
+                    print("[ImagesListService] Error: Photo not found")
                     completion(.failure(ImagesListServiceError.invalidRequest))
                 }
-                
             }
         }
         task.resume()
     }
-    
 }
 

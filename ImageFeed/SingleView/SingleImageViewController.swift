@@ -20,12 +20,13 @@ final class SingleImageViewController: UIViewController {
         didSet {
             guard isViewLoaded, let image else { return }
             singleImageView.image = image
-            singleImageView.frame.size = image.size
-            rescaleAndCenterImageInScrollView(image: image)
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.translatesAutoresizingMaskIntoConstraints = true
+        singleImageView.translatesAutoresizingMaskIntoConstraints = true
+        //rescaleAndCenterImageInScrollView(image: image!)
         setupImage()
     }
     
@@ -38,14 +39,10 @@ final class SingleImageViewController: UIViewController {
         let imageSize = image.size
         let hScale = visibleRectSize.width / imageSize.width
         let vScale = visibleRectSize.height / imageSize.height
-        let scale = min(maxZoomScale, max(minZoomScale, min(hScale, vScale)))
+        let scale = max(maxZoomScale, max(hScale, vScale))
         scrollView.setZoomScale(scale, animated: false)
         scrollView.layoutIfNeeded()
-        let newContentSize = scrollView.contentSize
-        let x = (newContentSize.width  - scrollView.bounds.size.height) / 2
-        let y = (newContentSize.height - scrollView.bounds.size.height) / 2
-        print("x: \(x) y: \(y) "  )
-        scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+        singleImageView.center = scrollView.center
         scrollView.layoutIfNeeded()
     }
     
@@ -94,10 +91,11 @@ extension SingleImageViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        let leftOffset = (scrollView.bounds.width - scrollView.contentSize.width)/2
-        let topOffset = (scrollView.bounds.height - scrollView.contentSize.height)/2
-        scrollView.contentInset.left = leftOffset
-        scrollView.contentInset.top = topOffset
+        //let leftOffset = (scrollView.bounds.width - scrollView.contentSize.width)/2
+        //let topOffset = (scrollView.bounds.height - scrollView.contentSize.height)/2
+        //scrollView.contentInset.left = leftOffset
+        //scrollView.contentInset.top = topOffset
+        singleImageView.center = scrollView.center
         scrollView.layoutIfNeeded()
     }
 }

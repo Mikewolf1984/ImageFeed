@@ -51,7 +51,9 @@ final class ImagesListViewController: UIViewController {
         let newCount = ImagesListService.shared.photos.count
         photos = ImagesListService.shared.photos
         if oldCount != newCount {
+            
             guard isViewLoaded else { return }
+            
             tableView.performBatchUpdates {
                 let indexPaths = (oldCount..<newCount).map { i in
                     IndexPath(row: i, section: 0)
@@ -91,8 +93,11 @@ extension ImagesListViewController {
         }
         cell.imageViewOutlet.kf.indicatorType = .activity
         let scribble = UIImage(named: "scribble")
+        
         cell.imageViewOutlet.kf.setImage(with: cellImageURL, placeholder: scribble)  { _ in
-            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            DispatchQueue.main.async {
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
         }
         
         if let  imageDateString = photos[indexPath.row].createdAt {
