@@ -109,6 +109,6 @@ final class ProfileViewController: UIViewController {
     }
     @objc
     private func didTapButton() {
-        //TODO later
+        ProfileLogoutService.shared.logout()
     }
 }

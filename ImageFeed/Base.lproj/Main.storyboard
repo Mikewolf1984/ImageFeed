@@ -72,6 +72,9 @@
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="likeNoActive"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="likeActive"/>
+                                                    <connections>
+                                                        <action selector="likeButtonTapped:" destination="SIA-F1-t1v" eventType="touchUpInside" id="ToG-XA-qJS"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNl-P3-wph" userLabel="dateLabel">
                                                     <rect key="frame" x="24" y="182.33333333333334" width="100" height="15.666666666666657"/>
@@ -231,8 +234,8 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggL-7x-LhA">
-                                <rect key="frame" x="0.0" y="3" width="64" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggL-7x-LhA">
+                                <rect key="frame" x="0.0" y="4" width="64" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="Id7-97-6Tw"/>
                                     <constraint firstAttribute="height" constant="44" id="TPl-Vw-nwJ"/>
@@ -303,20 +306,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PiK-Wi-FxK">
+                            <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PiK-Wi-FxK">
                                 <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="L8Y-G3-Cyg">
-                                        <rect key="frame" x="0.0" y="0.0" width="1600" height="1059"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="0" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L8Y-G3-Cyg">
+                                        <rect key="frame" x="-599" y="-92.666666666666686" width="1600" height="1059.3333333333333"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" name="BackGroundColor"/>
                                     </imageView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="L8Y-G3-Cyg" firstAttribute="leading" secondItem="Aul-B8-hHB" secondAttribute="leading" id="7jQ-Hd-RF9"/>
-                                    <constraint firstItem="L8Y-G3-Cyg" firstAttribute="trailing" secondItem="Aul-B8-hHB" secondAttribute="trailing" id="WgG-T0-kNf"/>
-                                    <constraint firstItem="L8Y-G3-Cyg" firstAttribute="bottom" secondItem="Aul-B8-hHB" secondAttribute="bottom" id="pNk-kl-GFL"/>
-                                    <constraint firstItem="L8Y-G3-Cyg" firstAttribute="top" secondItem="Aul-B8-hHB" secondAttribute="top" id="zjr-Jg-SLf"/>
-                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Aul-B8-hHB"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Jd4-Wm-RZq"/>
                                 <connections>
@@ -353,14 +352,10 @@
                         <viewLayoutGuide key="safeArea" id="yWu-nP-ht8"/>
                         <color key="backgroundColor" name="BackGroundColor"/>
                         <constraints>
-                            <constraint firstItem="PiK-Wi-FxK" firstAttribute="leading" secondItem="yWu-nP-ht8" secondAttribute="leading" id="57O-a1-ZNx"/>
                             <constraint firstItem="8Wv-Lp-fo8" firstAttribute="top" secondItem="yWu-nP-ht8" secondAttribute="top" constant="8" id="L4o-ag-Zqc"/>
-                            <constraint firstItem="PiK-Wi-FxK" firstAttribute="top" secondItem="yWu-nP-ht8" secondAttribute="top" id="asO-7f-EFW"/>
-                            <constraint firstItem="PiK-Wi-FxK" firstAttribute="bottom" secondItem="yWu-nP-ht8" secondAttribute="bottom" id="g3Z-4P-YG2"/>
                             <constraint firstItem="yWu-nP-ht8" firstAttribute="bottom" secondItem="2ga-rY-aXL" secondAttribute="bottom" constant="17" id="kIK-8M-yco"/>
                             <constraint firstItem="yWu-nP-ht8" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8Wv-Lp-fo8" secondAttribute="trailing" symbolic="YES" id="q3E-6f-mk4"/>
                             <constraint firstItem="2ga-rY-aXL" firstAttribute="centerX" secondItem="yWu-nP-ht8" secondAttribute="centerX" id="sV2-yS-Weu"/>
-                            <constraint firstItem="PiK-Wi-FxK" firstAttribute="trailing" secondItem="yWu-nP-ht8" secondAttribute="trailing" id="v6K-4Z-M3e"/>
                             <constraint firstItem="8Wv-Lp-fo8" firstAttribute="leading" secondItem="yWu-nP-ht8" secondAttribute="leading" constant="8" id="wFc-fE-H4B"/>
                         </constraints>
                     </view>
@@ -371,7 +366,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0xi-Fx-em6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1591.6030534351144" y="-294.36619718309862"/>
+            <point key="canvasLocation" x="1591.044776119403" y="-294.50800915331803"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lGE-2v-TzL">

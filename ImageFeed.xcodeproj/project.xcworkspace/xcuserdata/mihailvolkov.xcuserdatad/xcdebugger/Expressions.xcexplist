@@ -3,49 +3,21 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ProfileService.fetchProfile(token:):ProfileService.swift">
+         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ImagesListViewController.didTapLikeButton(on:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "data">
+               value = "photos[0]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AuthViewController.fetchOAuthToken(code:):AuthController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "OAuth2Service.fetchOAuthToken(code:completion:):OAuth2Service.swift">
+         contextName = "ImagesListViewController.prepare(for:sender:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "data">
-            </PersistentString>
-            <PersistentString
-               value = "response">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AuthViewController.getAuthToken(code:):AuthController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "AuthViewController.webViewViewController(_:didAuthentificatedWithCode:):AuthController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "delegate">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ProfileImageService.fetchProfileImage(token:handler:):ProfileImageService.swift.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "profile">
-            </PersistentString>
-            <PersistentString
-               value = "lastToken">
-            </PersistentString>
-            <PersistentString
-               value = "userName">
+               value = "photos">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -76,6 +48,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "NetworkClient.fetch(request:handler:):NetworkClient.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+            <PersistentString
+               value = "response">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
          <PersistentStrings>
             <PersistentString
@@ -84,23 +67,160 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
+         contextName = "closure #1 in ImagesListService.changeLike(photoId:isLike:_:):ImagesListService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "ImagesListCell.reuseIdentifier">
-            </PersistentString>
-            <PersistentString
-               value = "indexPath">
+               value = "self.photos[index]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SplashViewController.viewDidAppear(_:):SplashViewController.swift">
+         contextName = "ImagesListService.fetchPhotosNextPage():ImagesListService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "profileService">
+               value = "lastLoadedPage">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ProfileViewController.updateAvatar(avatarImageView:):ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "avatarImageView.kf.base.layer.cornerRadius">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ImagesListService.fetchPhotosNextPage():ImagesListService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.photos">
+            </PersistentString>
+            <PersistentString
+               value = "newPhotos">
+            </PersistentString>
+            <PersistentString
+               value = "photos">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "main:AppDelegate.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ImagesListService.changeLike(photoId:isLike:_:):ImagesListService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "photos">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileViewController.loadProfile():ProfileViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "profileLoaded">
+            </PersistentString>
+            <PersistentString
+               value = "token">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImagesListCell.likeButtonTapped(_:):ImagesListCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImagesListViewController.viewDidLoad():ImagesListViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "photos">
+            </PersistentString>
+            <PersistentString
+               value = "ImagesListService.shared.photos">
+            </PersistentString>
+            <PersistentString
+               value = "ImageListService.shared.photos">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ImageListService.fetchPhotosNextPage():ImagesListService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.photos">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SingleImageViewController.rescaleAndCenterImageInScrollView(image:):SingleImageViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "visibleRectSize.width">
+            </PersistentString>
+            <PersistentString
+               value = "scrollView.bounds.size">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AuthViewController.webViewViewController(_:didAuthentificatedWithCode:):AuthController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ProfileViewController.loadProfile():ProfileViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ProfileImageService.fetchProfileImage(token:userName:handler:):ProfileImageService.swift.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "result">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AuthViewController.prepare(for:sender:):AuthController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "segue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileImageService.fetchProfileImage(token:handler:):ProfileImageService.swift.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "profile">
+            </PersistentString>
+            <PersistentString
+               value = "lastToken">
+            </PersistentString>
+            <PersistentString
+               value = "userName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImagesListViewController.tableView(_:willDisplay:forRowAt:):ImagesListViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "photosName.count">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AuthViewController.fetchOAuthToken(code:):AuthController.swift">
       </ContextState>
       <ContextState
          contextName = "WebViewViewController.webView(_:decidePolicyFor:decisionHandler:):WebViewViewController.swift">
@@ -114,10 +234,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "main:AppDelegate.swift">
-      </ContextState>
-      <ContextState
-         contextName = "NSURLSession.objectTask&lt;ImageFeed.ProfileResult&gt;(for:completion:):URLSession+data.swift">
+         contextName = "OAuth2Service.fetchOAuthToken(code:completion:):OAuth2Service.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+            <PersistentString
+               value = "response">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.viewDidLoad():ProfileViewController.swift">
@@ -130,37 +255,6 @@
             </PersistentString>
             <PersistentString
                value = "profileImageService">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ProfileService.fetchProfileData(token:handler:):ProfileService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "NetworkClient.fetch(request:handler:):NetworkClient.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "data">
-            </PersistentString>
-            <PersistentString
-               value = "response">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ProfileViewController.loadProfile():ProfileViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ProfileViewController.loadProfile():ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "profileLoaded">
-            </PersistentString>
-            <PersistentString
-               value = "token">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -179,20 +273,32 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in ProfileImageService.fetchProfileImage(token:userName:handler:):ProfileImageService.swift.swift">
+         contextName = "closure #1 in closure #1 in ImagesListViewController.didTapLikeButton(on:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "result">
+               value = "photo">
+            </PersistentString>
+            <PersistentString
+               value = "self?.photos[indexPath.row]">
+            </PersistentString>
+            <PersistentString
+               value = "self?.photo">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProfileService.makeProfileRequest(token:):ProfileService.swift">
+         contextName = "SingleImageViewController.viewDidLoad():SingleImageViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProfileService.fetchProfile(token:):ProfileService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "request.httpBody">
+               value = "data">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AuthViewController.getAuthToken(code:):AuthController.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileViewController.updateAvatar(avatarImageView:):ProfileViewController.swift">
@@ -203,26 +309,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "AuthViewController.prepare(for:sender:):AuthController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "segue">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "closure #1 in ProfileService.fetchProfileData(token:handler:):ProfileService.swift">
       </ContextState>
       <ContextState
          contextName = "ProfileService.fetchProfileData(token:handler:):ProfileService.swift">
          <PersistentStrings>
             <PersistentString
                value = "dataTask">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ProfileViewController.updateAvatar(avatarImageView:):ProfileViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "avatarImageView.kf.base.layer.cornerRadius">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -241,6 +334,25 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "NSURLSession.objectTask&lt;ImageFeed.ProfileResult&gt;(for:completion:):URLSession+data.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SplashViewController.viewDidAppear(_:):SplashViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "profileService">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProfileService.makeProfileRequest(token:):ProfileService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "request.httpBody">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "WebViewViewController.fetchCode(url:):WebViewViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -248,6 +360,25 @@
             </PersistentString>
             <PersistentString
                value = "url.absoluteString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImagesListService.makePhotoIsLikedRequest(photoID:state:):ImagesListService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "token">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "ImagesListCell.reuseIdentifier">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

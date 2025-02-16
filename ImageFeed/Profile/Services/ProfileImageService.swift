@@ -4,7 +4,7 @@ enum ProfileImageServiceError: Error {
     case invalidRequest
     case invalidToken
     case decodingError
-    case invaliUserName
+    case invalidUserName
 }
 
 final class ProfileImageService {
@@ -17,6 +17,10 @@ final class ProfileImageService {
     private let token = OAuth2TokenStorage().accessToken
     private init() {}
     private(set) var profileImageUrl: String?
+    
+    func clearProfileImageService() {
+        profileImageUrl = nil
+    }
     
     private func makeProfileImageRequest(token: String, userName: String)-> URLRequest? {
         guard let url = URL(string: Constants.unsplashUsersURLString+userName) else {
@@ -34,7 +38,7 @@ final class ProfileImageService {
     {
         guard lastUserName != userName else {
             print("[ProfileImageService] Same userName requested]")
-            handler(.failure(ProfileImageServiceError.invaliUserName))
+            handler(.failure(ProfileImageServiceError.invalidUserName))
             return
         }
         task?.cancel()
