@@ -4,3 +4,4 @@ struct Profile {
     let loginName: String
     let bio: String
 }
+

@@ -2,29 +2,38 @@ import UIKit
 import Foundation
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
+public protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfileViewPresenterProtocol? { get set }
+    func updateAvatar()
+    func loadProfile ()
+}
+
+final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
+    
+    var presenter: ProfileViewPresenterProtocol?
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var currentProfile = Profile(userName: "ekaterina_nov",
                                          name: "Екатерина Новикова",
                                          loginName: "@ekaterina_nov",
                                          bio: "Hello world!")
-    
-    private var profileImageServiceObserver: NSObjectProtocol?
     private let profileImage = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ProfileImageService.didChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar(avatarImageView: profileImage)
-            }
+        presenter?.viewDidLoad()
         loadProfile()
+        
+    }
+    
+    func loadProfile() {
+        guard let profile = profileService.profile else {
+            print("No profile data")
+            return }
+        self.currentProfile = profile
+        guard let profileImageUrl = profileImageService.profileImageUrl else {
+            print ("No profile image URL")
+            return }
         let profileNameLabel = UILabel()
         let profileNickNameLabel = UILabel()
         let helloLabel = UILabel()
@@ -48,23 +57,13 @@ final class ProfileViewController: UIViewController {
         configureExitButton(button: exitButton, anchor: profileImage)
     }
     
-    private func loadProfile() {
-        guard let profile = profileService.profile else {
-            print("No profile data")
-            return }
-        self.currentProfile = profile
-        guard let profileImageUrl = profileImageService.profileImageUrl else {
-            print ("No profile image URL")
-            return }
-    }
-    
-    private func updateAvatar(avatarImageView: UIImageView) {
+   func updateAvatar() {
         guard
             let profileImageURL = ProfileImageService.shared.profileImageUrl,
             let url = URL(string: profileImageURL)
         else { return }
-        avatarImageView.kf.indicatorType = .activity
-        avatarImageView.kf.setImage(with: url,
+        profileImage.kf.indicatorType = .activity
+        profileImage.kf.setImage(with: url,
                                     placeholder: UIImage(named: "Placeholder")) { result in
             switch result {
             case .success(let value):
@@ -74,8 +73,8 @@ final class ProfileViewController: UIViewController {
             case .failure(let error):
                 print("[ProfileImageViewController] Error downloading profile image: \(error.localizedDescription)]")
             }
-            avatarImageView.layer.masksToBounds = true
-            avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+            self.profileImage.layer.masksToBounds = true
+            self.profileImage.layer.cornerRadius = self.profileImage.frame.width / 2
         }
     }
     
@@ -87,8 +86,7 @@ final class ProfileViewController: UIViewController {
         image.topAnchor.constraint(equalTo: view.topAnchor, constant: 76).isActive = true
         image.widthAnchor.constraint(equalToConstant: 70).isActive = true
         image.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        
-        updateAvatar(avatarImageView: image)
+        updateAvatar()
     }
     
     private func configureTextLabel(label: UILabel, text: String, anchor: UIView, top: CGFloat, leading: CGFloat, fontSize: CGFloat, fontColor: UIColor) {
