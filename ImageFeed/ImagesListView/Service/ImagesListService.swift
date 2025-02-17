@@ -14,7 +14,7 @@ final class ImagesListService {
     private(set) var photos: [Photo] = []
     private var currentTask: URLSessionTask?
     private let urlSession = URLSession.shared
-    private let oauthToken = OAuth2TokenStorage().accessToken
+    private let oauthToken = OAuth2TokenStorage.shared.accessToken
     
     static let isoDateFormatter: ISO8601DateFormatter = {
         let dateFormatter = ISO8601DateFormatter()
@@ -97,8 +97,11 @@ final class ImagesListService {
             return nil
         }
         var request = URLRequest(url: url)
-        request.httpMethod = state ? "DELETE" :"POST"
-        let token = oauthToken
+        request.httpMethod = state ? "POST" :"DELETE"
+        guard let token = oauthToken else {
+            print("[ImagesListService] Error: Invalid token")
+            return nil
+        }
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }

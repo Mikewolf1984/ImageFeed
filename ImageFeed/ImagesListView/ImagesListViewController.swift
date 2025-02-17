@@ -133,18 +133,15 @@ extension ImagesListViewController: ImagesListCellDelegate {
         let photo = photos[indexPath.row]
         UIBlockingProgressHUD.show()
         let isLiked = !photo.isLiked
-        print(isLiked)
         imagesListService.changeLike(photoId: photo.id, isLike: isLiked) {result in
             DispatchQueue.main.async {
                 switch result {
                 case .success:
-                    print("success")
                     self.photos = self.imagesListService.photos
                     let likeImage = isLiked ? UIImage(named: "likeActive") : UIImage(named: "likeNoActive")
                     cell.likeButtonOutlet.setImage(likeImage, for: .normal)
                     UIBlockingProgressHUD.dismiss()
                 case .failure:
-                    print("error")
                     UIBlockingProgressHUD.dismiss()
                     // TODO: Показать ошибку с использованием UIAlertController
                 }
