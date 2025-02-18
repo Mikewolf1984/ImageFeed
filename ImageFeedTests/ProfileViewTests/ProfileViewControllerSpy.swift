@@ -11,6 +11,6 @@ final class ProfileViewControllerSpy: ProfileViewControllerProtocol {
     }
     func loadProfile ()
     {
-        avatarLoaded = true
+        profileLoaded = true
     }
 }

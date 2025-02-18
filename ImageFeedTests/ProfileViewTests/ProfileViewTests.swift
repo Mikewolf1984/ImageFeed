@@ -30,7 +30,7 @@ final class ProfileViewTests: XCTestCase {
         //when
         presenter.notificationObserver()
         
-        XCTAssert(presenter.notificationObserverCalled)
+        XCTAssertTrue(presenter.notificationObserverCalled)
     }
     
     func testProfileIsLoaded () {
@@ -43,7 +43,7 @@ final class ProfileViewTests: XCTestCase {
         //when
         viewController.loadProfile()
         
-        XCTAssert(viewController.profileLoaded)
+        XCTAssertTrue(viewController.profileLoaded)
     }
     
     func testAvatarIsLoaded () {
@@ -56,6 +56,6 @@ final class ProfileViewTests: XCTestCase {
         //when
         viewController.updateAvatar()
         
-        XCTAssert(viewController.avatarLoaded)
+        XCTAssertTrue(viewController.avatarLoaded)
     }
 }

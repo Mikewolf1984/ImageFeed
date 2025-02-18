@@ -1,9 +1,16 @@
 import UIKit
 import Kingfisher
 
-final class ImagesListViewController: UIViewController {
+public protocol ImagesListViewControllerProtocol: AnyObject {
+    var presenter: ImagesListViewPresenterProtocol? { get set }
+    func updateTableViewAnimated()
+}
+
+final class ImagesListViewController: UIViewController & ImagesListViewControllerProtocol {
     
     @IBOutlet private var tableView: UITableView!
+    
+    var presenter: ImagesListViewPresenterProtocol?
     
     let imagesListService = ImagesListService.shared
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
@@ -19,13 +26,8 @@ final class ImagesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        NotificationCenter.default.addObserver(forName: ImagesListService.didChangeNotification,
-                                               object: nil,
-                                               queue: .main) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateTableViewAnimated()
-        }
-        ImagesListService.shared.fetchPhotosNextPage()
+        presenter = ImagesListViewPresenter(view: self)
+        presenter?.viewDidLoad()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
@@ -45,7 +47,7 @@ final class ImagesListViewController: UIViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
-    private func updateTableViewAnimated() {
+    func updateTableViewAnimated() {
         let oldCount = photos.count
         let newCount = ImagesListService.shared.photos.count
         photos = ImagesListService.shared.photos
@@ -133,7 +135,7 @@ extension ImagesListViewController: ImagesListCellDelegate {
         let photo = photos[indexPath.row]
         UIBlockingProgressHUD.show()
         let isLiked = !photo.isLiked
-        imagesListService.changeLike(photoId: photo.id, isLike: isLiked) {result in
+        presenter?.changeLike(photoId: photo.id, isLiked: isLiked) {result in
             DispatchQueue.main.async {
                 switch result {
                 case .success:
@@ -143,9 +145,21 @@ extension ImagesListViewController: ImagesListCellDelegate {
                     UIBlockingProgressHUD.dismiss()
                 case .failure:
                     UIBlockingProgressHUD.dismiss()
-                    // TODO: Показать ошибку с использованием UIAlertController
+                    self.showLikeAlert()
                 }
             }
         }
+    }
+    func showLikeAlert()
+    {
+            let alert = UIAlertController(title: "Ошибка",
+                                          message: "Не удалось поставить лайк",
+                                          preferredStyle: .alert)
+            let alertActionDismiss = UIAlertAction(title: "ОК", style: .default) { _ in
+                alert.dismiss(animated: true)
+                self.dismiss(animated: true)
+            }
+           alert.addAction(alertActionDismiss)
+            present(alert, animated: true)
     }
 }
