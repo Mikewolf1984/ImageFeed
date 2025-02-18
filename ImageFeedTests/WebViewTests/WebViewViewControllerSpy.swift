@@ -4,9 +4,7 @@ import Foundation
 
 final class WebViewViewControllerSpy: WebViewViewControllerProtocol {
     var presenter: ImageFeed.WebViewPresenterProtocol?
-
     var loadRequestCalled: Bool = false
-
     func load(request: URLRequest) {
         loadRequestCalled = true
     }
@@ -14,7 +12,6 @@ final class WebViewViewControllerSpy: WebViewViewControllerProtocol {
     func setProgressValue(_ newValue: Float) {
 
     }
-
     func setProgressHidden(_ isHidden: Bool) {
 
     }

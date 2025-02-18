@@ -1,7 +1,10 @@
-//
-//  ImagesListControllerSpy.swift
-//  ImageFeed
-//
-//  Created by Михаил Волков on 18.02.2025.
-//
+@testable import ImageFeed
 
+final class ImagesListViewControllerSpy: ImagesListViewControllerProtocol {
+    
+    var presenter: ImagesListViewPresenterProtocol?
+    var tableViewUpdatesCalled: Bool =  false
+    func updateTableViewAnimated() {
+        tableViewUpdatesCalled = true
+    }
+}
