@@ -11,26 +11,20 @@ public protocol ProfileViewControllerProtocol: AnyObject {
 final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
     
     var presenter: ProfileViewPresenterProtocol?
-    private let profileService = ProfileService.shared
+    //private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
-    private var currentProfile = Profile(userName: "ekaterina_nov",
-                                         name: "Екатерина Новикова",
-                                         loginName: "@ekaterina_nov",
-                                         bio: "Hello world!")
+    private var currentProfile = ProfileService.shared.profile
     private let profileImage = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidLoad()
-        loadProfile()
-        
     }
     
     func loadProfile() {
-        guard let profile = profileService.profile else {
+        guard let currentProfile = currentProfile else {
             print("No profile data")
             return }
-        self.currentProfile = profile
         guard let profileImageUrl = profileImageService.profileImageUrl else {
             print ("No profile image URL")
             return }
@@ -57,7 +51,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         configureExitButton(button: exitButton, anchor: profileImage)
     }
     
-   func updateAvatar() {
+    func updateAvatar() {
         guard
             let profileImageURL = ProfileImageService.shared.profileImageUrl,
             let url = URL(string: profileImageURL)
@@ -75,6 +69,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
             }
             self.profileImage.layer.masksToBounds = true
             self.profileImage.layer.cornerRadius = self.profileImage.frame.width / 2
+                      
         }
     }
     
