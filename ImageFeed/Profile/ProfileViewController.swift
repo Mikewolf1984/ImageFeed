@@ -11,7 +11,6 @@ public protocol ProfileViewControllerProtocol: AnyObject {
 final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
     
     var presenter: ProfileViewPresenterProtocol?
-    //private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var currentProfile = ProfileService.shared.profile
     private let profileImage = UIImageView()
@@ -38,7 +37,9 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
             with: UIImage(named: "Exit") ?? UIImage(),
             target: self,
             action: #selector(Self.didTapButton)
+            
         )
+        exitButton.accessibilityIdentifier = "profileExitButton"
         view.addSubview(profileImage)
         view.addSubview(profileNameLabel)
         view.addSubview(profileNickNameLabel)

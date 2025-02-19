@@ -135,6 +135,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ImageFeedUITests.testFeed():ImageFeedUITests.swift">
+      </ContextState>
+      <ContextState
          contextName = "SingleImageViewController.rescaleAndCenterImageInScrollView(image:):SingleImageViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -346,6 +349,14 @@
             </PersistentString>
             <PersistentString
                value = "dataTask">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImageFeedUITests.testProfile():ImageFeedUITests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "app.buttons">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
