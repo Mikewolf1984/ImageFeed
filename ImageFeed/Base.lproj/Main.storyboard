@@ -325,6 +325,7 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Wv-Lp-fo8" userLabel="Back Button">
                                 <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="navSingleBackButton"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="VRV-gw-RqO"/>
                                     <constraint firstAttribute="width" constant="48" id="viI-7T-oLd"/>
@@ -363,6 +364,7 @@
                     <connections>
                         <outlet property="scrollView" destination="PiK-Wi-FxK" id="HhR-R9-cSJ"/>
                         <outlet property="singleImageView" destination="L8Y-G3-Cyg" id="q5I-X9-geq"/>
+                        <outlet property="singleViewBackButton" destination="8Wv-Lp-fo8" id="ELc-6U-Eeb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0xi-Fx-em6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

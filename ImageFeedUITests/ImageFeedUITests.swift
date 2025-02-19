@@ -15,34 +15,34 @@ final class ImageFeedUITests: XCTestCase {
         app.buttons["Authenticate"].tap()
         let webView = app.webViews["UnsplashWebView"]
         
-        print(app.webViews.description)
         XCTAssertTrue(webView.waitForExistence(timeout: 5))
         let loginTextField = webView.descendants(matching: .textField).element
         XCTAssertTrue(loginTextField.waitForExistence(timeout: 10))
+        sleep(5)
         loginTextField.tap()
-        loginTextField.typeText("mike.volkov@icloud.com")
+        sleep(3)
+        loginTextField.typeText("") //Личные данные!
         let passwordTextField = webView.descendants(matching: .secureTextField).element
         XCTAssertTrue(loginTextField.waitForExistence(timeout: 10))
         passwordTextField.tap()
-        passwordTextField.typeText("MikeWolf1984")
+        sleep(3)
+        passwordTextField.typeText("") //Личные данные!
+        sleep(3)
         webView.buttons["Login"].tap()
         sleep(10)
         let tablesQuery = app.tables
         let cell = tablesQuery.children(matching: .cell).element(boundBy: 0)
         XCTAssertTrue(cell.waitForExistence(timeout: 5))
-        print(app.debugDescription)
+        
     }
     
     func testFeed() throws {
         let tablesQuery = app.tables
         let cell = tablesQuery.children(matching: .cell).element(boundBy: 0)
         cell.swipeUp()
-        sleep(2)
-        
         let cellToLike = tablesQuery.children(matching: .cell).element(boundBy: 1)
-        cellToLike.buttons["likeButton"].tap()
-        sleep(3)
-        
+        let likeButton = cellToLike.buttons["likeButton"]
+        likeButton.tap()
         cellToLike.tap()
         sleep(5)
         let image = app.scrollViews.images.element(boundBy: 0)
@@ -55,16 +55,16 @@ final class ImageFeedUITests: XCTestCase {
         navBackButtonWhiteButton.tap()
     }
     func testProfile() throws {
-        sleep(3)
+        sleep(5)
         app.tabBars.buttons.element(boundBy: 1).tap()
-        sleep(3)
-        XCTAssertTrue(app.staticTexts["Mike Volkov"].exists)
-        XCTAssertTrue(app.staticTexts["@mikewolf1984"].exists)
-       
+        sleep(5)
+        XCTAssertTrue(app.staticTexts[""].exists) //Личные данные!
+        XCTAssertTrue(app.staticTexts[""].exists) //Личные данные!
+        
         let navProfileExitButton = app.buttons["navProfileExitButton"]
         
         navProfileExitButton.tap()
         
-        app.alerts["Пока, пока!"].scrollViews.otherElements.buttons["Дашсдщг"].tap()
+        app.alerts["Пока, пока!"].scrollViews.otherElements.buttons["Да"].tap()
     }
 }

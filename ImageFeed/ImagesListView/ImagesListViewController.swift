@@ -39,7 +39,6 @@ final class ImagesListViewController: UIViewController & ImagesListViewControlle
                 assertionFailure("Invalid segue destination")
                 return
             }
-            
             guard let largeImageURL = URL(string: imagesListService.photos[indexPath.row].largeImageURL) else {
                 return
             }
@@ -54,13 +53,10 @@ final class ImagesListViewController: UIViewController & ImagesListViewControlle
         photos = ImagesListService.shared.photos
         if oldCount != newCount {
            
-            
             guard isViewLoaded else {
                 print ("Error loading View")
                 return
             }
-            
-            
             
             tableView.performBatchUpdates {
                 let indexPaths = (oldCount..<newCount).map { i in
@@ -78,9 +74,15 @@ extension ImagesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == photos.count {
-            ImagesListService.shared.fetchPhotosNextPage()
-        }
+        let testMode = ProcessInfo.processInfo.arguments.contains("TestMode")
+        //let testMode =  NSProcessInfo.processInfo().arguments.contains("testMode")
+        if testMode {
+            return } else
+        {
+                if indexPath.row + 1 == photos.count {
+                    ImagesListService.shared.fetchPhotosNextPage()
+                }
+            }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -3,7 +3,15 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
+         contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath">
+            </PersistentString>
+            <PersistentString
+               value = "ImagesListCell.reuseIdentifier">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ImagesListViewController.didTapLikeButton(on:):ImagesListViewController.swift">
@@ -144,13 +152,13 @@
          contextName = "ImagesListViewController.viewDidLoad():ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "photos">
+               value = "ImageListService.shared.photos">
             </PersistentString>
             <PersistentString
                value = "ImagesListService.shared.photos">
             </PersistentString>
             <PersistentString
-               value = "ImageListService.shared.photos">
+               value = "photos">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -212,10 +220,10 @@
                value = "profile">
             </PersistentString>
             <PersistentString
-               value = "lastToken">
+               value = "userName">
             </PersistentString>
             <PersistentString
-               value = "userName">
+               value = "lastToken">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -223,10 +231,16 @@
          contextName = "ImagesListViewController.tableView(_:willDisplay:forRowAt:):ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "ProcessInfo.processInfo.environment[&quot;TestMode&quot;]">
+            </PersistentString>
+            <PersistentString
                value = "photosName.count">
             </PersistentString>
             <PersistentString
                value = "indexPath.row">
+            </PersistentString>
+            <PersistentString
+               value = "ProcessInfo.processInfo.environment[&quot;isUITest&quot;] ">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -397,15 +411,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "ImagesListCell.reuseIdentifier">
-            </PersistentString>
-            <PersistentString
-               value = "indexPath">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
