@@ -19,6 +19,7 @@ final class SingleImageViewController: UIViewController {
     var image: UIImage? {
         didSet {
             guard isViewLoaded, let image else { return }
+            
             singleImageView.image = image
         }
     }

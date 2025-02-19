@@ -18,11 +18,14 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter = ProfileViewPresenter(view: self)
         presenter?.viewDidLoad()
+        loadProfile()
+        updateAvatar()
     }
     
     func loadProfile() {
-        guard let currentProfile = currentProfile else {
+        guard let currentProfile = ProfileService.shared.profile else {
             print("No profile data")
             return }
         guard let profileImageUrl = profileImageService.profileImageUrl else {

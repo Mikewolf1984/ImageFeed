@@ -9,7 +9,12 @@ public protocol ProfileViewPresenterProtocol {
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     private var profileImageServiceObserver: NSObjectProtocol?
-    var view: ProfileViewControllerProtocol?
+    weak var view: ProfileViewControllerProtocol?
+    
+    init(view: ProfileViewControllerProtocol) {
+            self.view = view
+            notificationObserver()
+        }
     
     func viewDidLoad() {
         notificationObserver()

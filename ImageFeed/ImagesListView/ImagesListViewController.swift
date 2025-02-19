@@ -23,11 +23,17 @@ final class ImagesListViewController: UIViewController & ImagesListViewControlle
         return formatter
     }()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        presenter = ImagesListViewPresenter(view: self)
+        presenter?.viewDidLoad()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        presenter = ImagesListViewPresenter(view: self)
-        presenter?.viewDidLoad()
+        //presenter = ImagesListViewPresenter(view: self)
+        //presenter?.viewDidLoad()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
@@ -52,8 +58,14 @@ final class ImagesListViewController: UIViewController & ImagesListViewControlle
         let newCount = ImagesListService.shared.photos.count
         photos = ImagesListService.shared.photos
         if oldCount != newCount {
+           
             
-            guard isViewLoaded else { return }
+            guard isViewLoaded else {
+                print ("Error loading View")
+                return
+            }
+            
+            
             
             tableView.performBatchUpdates {
                 let indexPaths = (oldCount..<newCount).map { i in

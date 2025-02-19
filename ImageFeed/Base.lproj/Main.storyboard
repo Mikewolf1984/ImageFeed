@@ -174,7 +174,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6k-lj-j88">
                                 <rect key="frame" x="29.666666666666657" y="695" width="343" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <accessibility key="accessibilityConfiguration" identifier="authButton"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="343" id="Kx4-Uu-gxA">
                                         <userDefinedRuntimeAttributes>
@@ -221,12 +221,12 @@
         <!--Web View View Controller-->
         <scene sceneID="7hn-pj-RWJ">
             <objects>
-                <viewController storyboardIdentifier="WebViewViewController" id="Doe-u6-9so" customClass="WebViewViewController" customModule="ImageFeed" sceneMemberID="viewController">
+                <viewController id="Doe-u6-9so" customClass="WebViewViewController" customModule="ImageFeed" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lZ1-Pz-rsQ">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFX-TB-DUA">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFX-TB-DUA" userLabel="UnsplashWebView">
                                 <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
@@ -253,6 +253,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8D9-lT-HLb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWebView"/>
                         <constraints>
                             <constraint firstItem="wFX-TB-DUA" firstAttribute="leading" secondItem="lZ1-Pz-rsQ" secondAttribute="leading" id="9Wv-4k-uLr"/>
                             <constraint firstItem="h2T-3V-izV" firstAttribute="leading" secondItem="8D9-lT-HLb" secondAttribute="leading" id="AuL-Fk-oti"/>
