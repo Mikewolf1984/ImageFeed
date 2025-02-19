@@ -4,7 +4,7 @@ import Foundation
 
 public protocol ImagesListViewPresenterProtocol: AnyObject {
     var view: ImagesListViewControllerProtocol? { get set }
-    func viewDidLoad()
+    func viewDidAppear()
     func notificationObserver()
     func changeLike(photoId: String, isLiked: Bool, _ completion: @escaping (Result<Void, Error>) -> Void)
 }
@@ -17,7 +17,7 @@ final class ImagesListViewPresenter: ImagesListViewPresenterProtocol {
         self.view = view
     }
     
-    func viewDidLoad() {
+    func viewDidAppear() {
         notificationObserver()
         ImagesListService.shared.fetchPhotosNextPage()
     }

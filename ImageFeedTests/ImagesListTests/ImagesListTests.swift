@@ -12,10 +12,10 @@ final class ImagesListTests: XCTestCase {
         viewController.presenter = presenter
         
         //When
-        presenter.viewDidLoad()
+        presenter.viewDidAppear()
         
         //Then
-        XCTAssertTrue(presenter.viewDidLoadCalled)
+        XCTAssertTrue(presenter.viewDidAppearCalled)
     }
     
     func testChangeLike() {

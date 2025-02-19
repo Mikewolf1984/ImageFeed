@@ -3,11 +3,11 @@
 import UIKit
 final class ImagesListViewPresenterSpy: ImagesListViewPresenterProtocol {
     var view: ImagesListViewControllerProtocol?
-    var viewDidLoadCalled: Bool = false
+    var viewDidAppearCalled: Bool = false
     var notificationObserverCalled: Bool = false
     var isLiked: Bool = false
-    func viewDidLoad() {
-        viewDidLoadCalled = true
+    func viewDidAppear() {
+        viewDidAppearCalled = true
     }
     
     func notificationObserver() {

@@ -3,15 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "indexPath">
-            </PersistentString>
-            <PersistentString
-               value = "ImagesListCell.reuseIdentifier">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
       </ContextState>
       <ContextState
          contextName = "ImagesListViewController.didTapLikeButton(on:):ImagesListViewController.swift">
@@ -152,13 +144,21 @@
          contextName = "ImagesListViewController.viewDidLoad():ImagesListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "ImageListService.shared.photos">
+               value = "photos">
             </PersistentString>
             <PersistentString
                value = "ImagesListService.shared.photos">
             </PersistentString>
             <PersistentString
-               value = "photos">
+               value = "ImageListService.shared.photos">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ImageFeedUITests.testAuth():ImageFeedUITests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "app.webViews[UnsplashWebView]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -175,14 +175,6 @@
          <PersistentStrings>
             <PersistentString
                value = "self.photos">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ImageFeedUITests.testAuth():ImageFeedUITests.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "app.webViews[UnsplashWebView]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -220,10 +212,10 @@
                value = "profile">
             </PersistentString>
             <PersistentString
-               value = "userName">
+               value = "lastToken">
             </PersistentString>
             <PersistentString
-               value = "lastToken">
+               value = "userName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -356,6 +348,12 @@
          contextName = "ImageFeedUITests.testProfile():ImageFeedUITests.swift">
          <PersistentStrings>
             <PersistentString
+               value = "navProfileExitButton.description">
+            </PersistentString>
+            <PersistentString
+               value = "navProfileExitButtons">
+            </PersistentString>
+            <PersistentString
                value = "app.buttons">
             </PersistentString>
          </PersistentStrings>
@@ -399,7 +397,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in OAuth2Service.fetchOAuthToken(code:):OAuth2Service.swift">
+         contextName = "ImagesListViewController.tableView(_:cellForRowAt:):ImagesListViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "ImagesListCell.reuseIdentifier">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

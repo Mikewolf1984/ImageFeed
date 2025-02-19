@@ -25,16 +25,11 @@ final class ImagesListViewController: UIViewController & ImagesListViewControlle
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         presenter = ImagesListViewPresenter(view: self)
-        presenter?.viewDidLoad()
+        presenter?.viewDidAppear()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        //presenter = ImagesListViewPresenter(view: self)
-        //presenter?.viewDidLoad()
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
             guard

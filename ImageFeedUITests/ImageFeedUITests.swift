@@ -41,12 +41,10 @@ final class ImageFeedUITests: XCTestCase {
         
         let cellToLike = tablesQuery.children(matching: .cell).element(boundBy: 1)
         cellToLike.buttons["likeButton"].tap()
-        sleep(2)
-        cellToLike.buttons["likeButton"].tap()
-        sleep(2)
+        sleep(3)
         
         cellToLike.tap()
-        sleep(2)
+        sleep(5)
         let image = app.scrollViews.images.element(boundBy: 0)
         // Zoom in
         image.pinch(withScale: 3, velocity: 1) // zoom in
@@ -62,9 +60,11 @@ final class ImageFeedUITests: XCTestCase {
         sleep(3)
         XCTAssertTrue(app.staticTexts["Mike Volkov"].exists)
         XCTAssertTrue(app.staticTexts["@mikewolf1984"].exists)
-        let exitButton = app.buttons["profileExitButton"]
-        exitButton.tap()
+       
+        let navProfileExitButton = app.buttons["navProfileExitButton"]
         
-        app.alerts["Bye bye!"].scrollViews.otherElements.buttons["Yes"].tap()
+        navProfileExitButton.tap()
+        
+        app.alerts["Пока, пока!"].scrollViews.otherElements.buttons["Дашсдщг"].tap()
     }
 }

@@ -19,7 +19,6 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         super.viewDidLoad()
         presenter = ProfileViewPresenter(view: self)
         presenter?.viewDidLoad()
-        loadProfile()
         updateAvatar()
     }
     
@@ -39,7 +38,6 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
             action: #selector(Self.didTapButton)
             
         )
-        exitButton.accessibilityIdentifier = "profileExitButton"
         view.addSubview(profileImage)
         view.addSubview(profileNameLabel)
         view.addSubview(profileNickNameLabel)
@@ -103,6 +101,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         view.addSubview(button)
         button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -26).isActive = true
         button.centerYAnchor.constraint(equalTo: anchor.centerYAnchor).isActive = true
+        button.accessibilityIdentifier = "navProfileExitButton"
     }
     @objc
     private func didTapButton() {
