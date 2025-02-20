@@ -2,6 +2,7 @@ import UIKit
 
 final class SingleImageViewController: UIViewController {
     
+    @IBOutlet weak var singleViewBackButton: UIButton!
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var singleImageView: UIImageView!
     @IBAction private func didTapShareButton(_ sender: Any) {
@@ -19,11 +20,13 @@ final class SingleImageViewController: UIViewController {
     var image: UIImage? {
         didSet {
             guard isViewLoaded, let image else { return }
+            
             singleImageView.image = image
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        singleViewBackButton.accessibilityIdentifier = "navSingleBackButton"
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         singleImageView.translatesAutoresizingMaskIntoConstraints = true
         setupImage()

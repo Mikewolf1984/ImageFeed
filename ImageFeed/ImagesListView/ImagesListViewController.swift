@@ -1,9 +1,16 @@
 import UIKit
 import Kingfisher
 
-final class ImagesListViewController: UIViewController {
+public protocol ImagesListViewControllerProtocol: AnyObject {
+    var presenter: ImagesListViewPresenterProtocol? { get set }
+    func updateTableViewAnimated()
+}
+
+final class ImagesListViewController: UIViewController & ImagesListViewControllerProtocol {
     
     @IBOutlet private var tableView: UITableView!
+    
+    var presenter: ImagesListViewPresenterProtocol?
     
     let imagesListService = ImagesListService.shared
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
@@ -16,17 +23,13 @@ final class ImagesListViewController: UIViewController {
         return formatter
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        NotificationCenter.default.addObserver(forName: ImagesListService.didChangeNotification,
-                                               object: nil,
-                                               queue: .main) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateTableViewAnimated()
-        }
-        ImagesListService.shared.fetchPhotosNextPage()
+        presenter = ImagesListViewPresenter(view: self)
+        presenter?.viewDidAppear()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
             guard
@@ -36,7 +39,6 @@ final class ImagesListViewController: UIViewController {
                 assertionFailure("Invalid segue destination")
                 return
             }
-            
             guard let largeImageURL = URL(string: imagesListService.photos[indexPath.row].largeImageURL) else {
                 return
             }
@@ -45,13 +47,16 @@ final class ImagesListViewController: UIViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
-    private func updateTableViewAnimated() {
+    func updateTableViewAnimated() {
         let oldCount = photos.count
         let newCount = ImagesListService.shared.photos.count
         photos = ImagesListService.shared.photos
         if oldCount != newCount {
-            
-            guard isViewLoaded else { return }
+           
+            guard isViewLoaded else {
+                print ("Error loading View")
+                return
+            }
             
             tableView.performBatchUpdates {
                 let indexPaths = (oldCount..<newCount).map { i in
@@ -69,9 +74,15 @@ extension ImagesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row + 1 == photos.count {
-            ImagesListService.shared.fetchPhotosNextPage()
-        }
+        let testMode = ProcessInfo.processInfo.arguments.contains("TestMode")
+        //let testMode =  NSProcessInfo.processInfo().arguments.contains("testMode")
+        if testMode {
+            return } else
+        {
+                if indexPath.row + 1 == photos.count {
+                    ImagesListService.shared.fetchPhotosNextPage()
+                }
+            }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -107,6 +118,7 @@ extension ImagesListViewController {
         
         let likeImage = photos[indexPath.row].isLiked ? UIImage(named: "likeActive") : UIImage(named: "likeNoActive")
         cell.likeButtonOutlet.setImage(likeImage, for: .normal)
+        cell.likeButtonOutlet.accessibilityIdentifier = "likeButton"
     }
 }
 
@@ -133,22 +145,31 @@ extension ImagesListViewController: ImagesListCellDelegate {
         let photo = photos[indexPath.row]
         UIBlockingProgressHUD.show()
         let isLiked = !photo.isLiked
-        print(isLiked)
-        imagesListService.changeLike(photoId: photo.id, isLike: isLiked) {result in
+        presenter?.changeLike(photoId: photo.id, isLiked: isLiked) {result in
             DispatchQueue.main.async {
                 switch result {
                 case .success:
-                    print("success")
                     self.photos = self.imagesListService.photos
                     let likeImage = isLiked ? UIImage(named: "likeActive") : UIImage(named: "likeNoActive")
                     cell.likeButtonOutlet.setImage(likeImage, for: .normal)
                     UIBlockingProgressHUD.dismiss()
                 case .failure:
-                    print("error")
                     UIBlockingProgressHUD.dismiss()
-                    // TODO: Показать ошибку с использованием UIAlertController
+                    self.showLikeAlert()
                 }
             }
         }
+    }
+    func showLikeAlert()
+    {
+            let alert = UIAlertController(title: "Ошибка",
+                                          message: "Не удалось поставить лайк",
+                                          preferredStyle: .alert)
+            let alertActionDismiss = UIAlertAction(title: "ОК", style: .default) { _ in
+                alert.dismiss(animated: true)
+                self.dismiss(animated: true)
+            }
+           alert.addAction(alertActionDismiss)
+            present(alert, animated: true)
     }
 }
